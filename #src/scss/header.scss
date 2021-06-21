@@ -17,23 +17,33 @@
   }
 
   &__body {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 5px 0px;
     min-height: 125px;
+    @media (max-width: $md2+px) {
+      min-height: 80px;
+    }
+    @media (max-width: $md3+px) {
+      min-height: 50px;
+    }
   }
 
   &__main {
     display: flex;
     align-items: center;
     flex: 0 0 494 / 1240 * 100%;
+    @media (max-width: $md2+px) {
+      flex: 1 1 auto;
+    }
   }
 
   &__logo {
+    position: relative;
+    z-index: 5;
     font-family: Gilroy;
     font-size: 29 / 24 * 100%;
-    // font-size: 24px;
-    // line-height: 29px;
     font-weight: 700;
     color: #000;
   }
@@ -71,6 +81,28 @@
   flex: 0 1 420px;
 
   &__body {
+    @media (max-width: $md3+px) {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: auto;
+      background-color: #fff;
+      transition: left .3s ease 0s;
+      padding: 55px 15px 30px 15px;
+      &::before {
+        content: '';
+        position: fixed;
+        width: 100%;
+        height: 50px;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+        transition: left .3s ease 0s;
+        z-index: 2;
+      }
+    }
   }
 
   &__list {
@@ -125,18 +157,33 @@
         }
       }
     }
+    @media (max-width: $md3+px) {
+      margin: 0 0 15px 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   &__link {
     font-weight: 500;
     color: inherit;
     transform: color .3s ease 0s;
+    @media (max-width: $md3+px) {
+      font-size: 24px;
+    }
   }
 
   &__arrow {
     margin: 0px 0px 0px 8px;
     transition: .3s ease 0s;
     font-size: 8px;
+    @media (max-width: $md3+px) {
+      font-size: 14px;
+    }
+    &._active {
+      transform: rotate(180deg);
+    }
   }
 
   &__sub-list {
@@ -153,19 +200,34 @@
       left: 0;
       position: absolute;
       top: 100%;
+      z-index: 5;
       // pointer-events: none; // to avoid jerking submenus, in __item we return it back as it was *(1)
+    }
+    @media (max-width: $md3+px) {
+      margin: 10px -20px 0 -20px;
     }
   }
 
   &__sub-item {
     &:not(:last-child) {
       margin: 0px 0px 5px 0px;
+      @media (max-width: $md3+px) {
+        margin-bottom: 10px;
+      }
     }
   }
   // .menu__sub-link
   &__sub-link {
     color: #fff;
     line-height: 120%;
+    @media (any-hover: hover) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    @media (max-width: $md3+px) {
+      font-size: 20px;
+    }
   }
 }
 
@@ -176,14 +238,42 @@
 }
 
 .search-form {
+  max-width: 473px;
+  &._active {
+    .search-form__item {
+      opacity: 1;
+      top: 100%;
+      visibility: visible;
+    }
+    .search-form__icon {
+      color: $orangeColor;
+    }
+  }
   &__icon {
-    display: none;
+    position: relative;
+    z-index: 5;
+    font-size: 24px;
+    color: $iconColor;
+    @media (min-width: $md2+px) {
+      display: none;
+    }
   }
 
   &__item {
     display: flex;
     align-items: center;
     background-color: #fff;
+    @media (max-width: $md2+px) {
+      position: absolute;
+      width: 100px;
+      left: 0;
+      top: -100%;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 5;
+      transition: .3s;
+      box-shadow: 0 0 5px rgba(116, 108, 108, 0.304);
+    }
   }
 
   &__btn {
@@ -215,9 +305,22 @@
   &__item {
     // .actions-header__item_favorites
     &_favorites {
+      color: $iconColor;
+      font-size: 24px;
+      transition: color .3s ease 0s;
+      @media (any-hover:hover) {
+        &:hover {
+          color: $orangeColor;
+        }
+      }
     }
+
       // .actions-header__item_user
     &_user {
+      overflow: hidden;
+      border-radius: 50%;
+      @include adaptiv-value ("width", 40, 30, 1);
+      @include adaptiv-value ("height", 40, 30, 1);
     }
   }
 }
@@ -225,6 +328,29 @@
 .cart-header {
   // .cart-header__icon
   &__icon {
+    position: relative;
+    color: $iconColor;
+    font-size: 24px;
+    transition: color .3s ease 0s;
+    @media (any-hover:hover) {
+      &:hover {
+        color: $orangeColor;
+      }
+    }
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      bottom: -8px;
+      left: 10px;
+      border-radius: 50%;
+      background-color: $orangeColor;
+      font-size: 12px;
+      color: #fff;
+    }
   }
   // .cart-header__body
   &__body {
