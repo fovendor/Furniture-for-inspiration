@@ -23,5 +23,15 @@ window.onload = function () {
         _removeClasses(document.querySelectorAll('.menu__item._hover'), "_hover");
       }
     }
+    if (targetElement.classList.contains('search-form__icon')) {
+      // console.log ('работает поиск');
+      document.querySelector('.search-form').classList.toggle('_active');
+    }
+    // проверяю на клик в пустоту. снова тоже самое: если объект, по которому мы кликнули не содержит родителя .search-form, то выбираем потомка с классом _active и удаляем класс _active
+    else if (!targetElement.closest('.search-form') && document.querySelector('.search-form._active')) {
+      document.querySelector('.search-form').classList.remove('_active');
+    }
   }
 }
+
+
