@@ -5,32 +5,64 @@
   }
   // .footer__body
   &__body {
-
+    display: grid;
+    border-top: 1px solid $borderColor;
+    grid-template-columns: 250px 1fr 290px;
+    @include adaptiv-value("padding-top", 80, 30, 1);
+    @include adaptiv-value("padding-bottom", 60, 30, 1);
+    @include adaptiv-value("column-gap", 80, 0, 1);
   }
   // .footer__main
   &__main {
-
+    display: flex;
+    flex-direction: column;
+    align-items: start;
   }
   // .footer__logo
   &__logo {
-
+    margin: 0px 0px (16px/24px * 1em) 0px;
   }
   // .footer__text
   &__text {
-
+    color: $grayColor;
+    font-size: 16px;
+    line-height: 24px;
+    &:not(:last-child) {
+      margin: 0px 0px 1em 0px;
+    }
   }
-  // .footer__contacts
-  &__contacts {
 
+.contacts-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+//   // contacts-footer__item
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    line-height: 24px;
+    color: $grayColor;
+    &::before {
+      margin: 0px 8px 0px 0px;
   }
-  // .footer__menu
-  &__menu {
+}
 
-  }
-  // .footer__subscribe
-  &__subscribe {
+		// ._icon-location
 
-  }
+		&_icon-location {}
+
+		// ._icon-phone
+
+		&_icon-phone {}
+}
+
+// .footer__menu
+&__menu {
+
+}
+// .footer__subscribe
+&__subscribe {
+
 }
 // ._footer-title
 &_footer-title {
@@ -89,4 +121,5 @@
 }
 .input {
 
+}
 }
