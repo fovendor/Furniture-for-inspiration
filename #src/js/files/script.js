@@ -33,5 +33,3 @@ window.onload = function () {
     }
   }
 }
-
-
