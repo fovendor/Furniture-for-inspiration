@@ -216,8 +216,8 @@ body._lock {
 
 ._container {
   max-width: 1270px;
+  padding: 0px 15px;
   margin: 0 auto;
-  padding: 0 15px;
 }
 
 .btn {
