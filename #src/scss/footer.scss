@@ -66,6 +66,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+
 	// .contacts-footer__item
 	&__item {
 		display: inline-flex;
@@ -106,7 +107,7 @@
 	&__title {
 		cursor: default;
 		@media (min-width: $md3+px) {
-			margin: $footerMarginBottom;
+			margin: 0px 0px 16px/24px * 1em 0px;
 		}
 		._init & {
 			display: flex;
