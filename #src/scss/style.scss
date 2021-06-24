@@ -35,6 +35,8 @@ $orangeColor: #E89F71;
 $grayColor: #898989;
 $darkGrayColor: #616161;
 $borderColor: #D8D8D8;
+$sliderBackgroundLight: #FCF8F3;
+$sliderBackgroundObscure: #F9F1E7;
 
 $footerMarginBottom: 0px 0px (16px/24px * 1em) 0px;
 
@@ -43,7 +45,6 @@ $footerMarginBottom: 0px 0px (16px/24px * 1em) 0px;
 //<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
 @import "null";
 body {
-  background-color: #F9F1E7;
 	color: $mainColor;
 	&._lock {
 		overflow: hidden;
@@ -83,10 +84,109 @@ body {
 @import "popup";
 @import "header";
 @import "footer";
-@import "home";
 //</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
 
 //<ОСНОВНОЙ БЛОК>====================================================================================================
 .page {
 	flex: 1 1 auto;
+    // .page__main-slider
+    &__main-slider {
+    }
 }
+
+.main-slider {
+  background-color: $sliderBackgroundLight;
+  // .main-slider__container
+  &__container {
+    position: relative;
+    @media (min-width: $md3+px) {
+      // Fucking color block
+      &::before {
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: 100%;
+        right: 376px;
+        content: "";
+        background-color: $sliderBackgroundObscure;
+      }
+    }
+  }
+
+  // .main-slider__body
+  &__body {
+  }
+
+  // .main-slider__content
+  &__content {
+  }
+
+  // .main-slider__slider
+  &__slider {
+  }
+}
+
+.content-main {
+
+  // .content-main__title
+  &__title {
+  }
+
+  // .content-main__text
+  &__text {
+  }
+
+  // .content-main__button
+  &__button {
+  }
+}
+
+.slider-main {
+
+  // .slider-main__controls
+  &__controls {
+  }
+
+  // .slider-main__body
+  &__body {
+  }
+
+  // .slider-main__slide
+  &__slide {
+  }
+
+  // .slider-main__image
+  &__image {
+  }
+
+  // .slider-main__content
+  &__content {
+  }
+
+  // .slider-main__title
+  &__title {
+  }
+
+  // .slider-main__text
+  &__text {
+  }
+
+  // .slider-main__price
+  &__price {
+  }
+}
+
+.controls {
+}
+
+.controls-slider-main {
+
+  // .controls-slider-main__dotts
+  &__dotts {
+  }
+
+  // .controls-slider-main__arrows
+  &__arrows {
+  }
+}
+

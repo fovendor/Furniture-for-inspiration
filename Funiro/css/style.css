@@ -193,7 +193,6 @@ h6 {
 }
 
 body {
-  background-color: #F9F1E7;
   color: #3A3A3A;
 }
 
@@ -1458,6 +1457,14 @@ body.ie ._ibg img {
           flex: 1 1 auto;
 }
 
+.main-slider {
+  background-color: #FCF8F3;
+}
+
+.main-slider__container {
+  position: relative;
+}
+
 @media (min-width: 767.98px) {
   .menu__list {
     display: -webkit-box;
@@ -1522,6 +1529,16 @@ body.ie ._ibg img {
 
   .menu-footer__title {
     margin: 0px 0px 0.66667em 0px;
+  }
+
+  .main-slider__container::before {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    right: 376px;
+    content: "";
+    background-color: #F9F1E7;
   }
 }
 
