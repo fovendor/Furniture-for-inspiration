@@ -119,7 +119,7 @@ body {
     padding: 140px 0px 0px 0px;
     position: relative;
     z-index: 2;
-    @media (min-width: $md3+px) {
+    @media (min-width: $md2+px) {
       display: flex;
     }
     @media (max-width: $md2+px) {
@@ -132,61 +132,177 @@ body {
 
   // .main-slider__content
   &__content {
+    align-self: flex-;
     flex: 0 0 (494 / 1240 * 100%);
+    @include adaptiv-value ("margin-bottom", 80, 20, 1);
   }
 
   // .main-slider__slider
   &__slider {
+    align-self: flex-end;
     flex: 1 1 auto;
+    min-width: 0; // чтобы свайпер с ума не сходил
+    @media (min-width: $md2+px) {
+      padding-left: 32px;
+    }
   }
 }
 
 .content-main {
+  position: relative;
+  padding: 15px;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.72);
+  @media (min-width: $md2+px) {
+    @include adaptiv-value(padding, 60, 1, 1);
+    // экспериментальная технология, не везде поддерживается
+    @supports ((-webkit-backdrop-filter: blur(25px)) or (backdrop-filter: blur(25px))) {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(25px);
+    }
 
+  }
   // .content-main__title
-  &__title {}
+  &__title {
+    font-weight: 700;
+    @include adaptiv-value ("font-size", 56, 20, 1);
+    @include adaptiv-value ("line-height", 67, 30, 1);
+    &:not(:last-child) {
+      margin: 0px 0px (16px / 56px * 1em) 0px;
+    }
+  }
 
   // .content-main__text
-  &__text {}
+  &__text {
+    font-weight: 500;
+    font-size: 20px;
+    color: $grayColor;
+    @include adaptiv-value ("font-size", 20, 14, 1);
+    @include adaptiv-value ("line-height", 30, 20, 1);
+    &:not(:last-child) {
+      margin: 0px 0px (48px / 20px * 1em) 0px;
+    }
+  }
 
   // .content-main__button
-  &__button {}
+  &__button {
+    width: 100%;
+    @include adaptiv-value ("min-height", 78, 45, 1);
+    font-weight: 600;
+    @include adaptiv-value ("font-size", 20, 14, 1);
+    @include adaptiv-value ("line-height", 30, 20, 1);
+    color: #FFFFFF;
+    background-color: $orangeColor;
+    @media (any-hover: hover) {
+      &:hover {
+        background: #b26e43;
+      }
+    }
+  }
 }
 
 .slider-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
   // .slider-main__controls
-  &__controls {}
+  &__controls {
+    align-self: stretch;
+    margin-bottom: 20px;
+  }
 
   // .slider-main__body
-  &__body {}
+  &__body {
+    overflow: visible;
+    @media (min-width: $md2+px) {
+      @include adaptiv-value ("width", 934, 290, 1); // for resoluton 320px: width=320px - padding(left,right)=15px = 290px
+    }
+  }
 
   // .slider-main__slide
-  &__slide {}
+  &__slide {
+    position: relative;
+  }
 
   // .slider-main__image
-  &__image {}
+  &__image {
+    padding: 0px 0px 59.4% 0px;
+  }
 
   // .slider-main__content
-  &__content {}
+  &__content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    min-width: 295px;
+    max-height: 300px;
+    overflow: auto;
+    color: inherit;
+    @include adaptiv-value ("padding", 24, 14, 1);
+    background: rgba(255, 255, 255, 0.72);
+    @media (min-width: $md3+px) {
+      position: absolute;
+      min-width: 350px;
+      @include adaptiv-value ("right", 40, 0, 1);
+      @include adaptiv-value ("bottom", 40, 0, 1);
+    }
+    @supports ((-webkit-backdrop-filter: blur(25px)) or (backdrop-filter: blur(25px))) {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(25px);
+    }
+  }
 
   // .slider-main__title
-  &__title {}
+  &__title {
+    &:not(:last-child) {
+      margin: 0px 0px (4px / 28px * 1em) 0px;
+    }
+    @include adaptiv-value ("font-size", 28, 22, 1);
+    @include adaptiv-value ("line-height", 34, 26, 1);
+    font-weight: 600;
+
+  }
 
   // .slider-main__text
-  &__text {}
+  &__text {
+    &:not(:last-child) {
+      margin: 0px 0px (8px / 16px * 1em) 0px;
+    }
+    @include adaptiv-value ("font-size", 16, 10, 1);
+    @include adaptiv-value ("line-height", 24, 16, 1);
+    font-weight: 500;
+    color: $grayColor;
+  }
 
   // .slider-main__price
-  &__price {}
+  &__price {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    @include adaptiv-value ("font-size", 20, 12, 1);
+    @include adaptiv-value ("line-height", 30, 18, 1);
+    font-weight: 600;
+    &::before {
+      margin: 0px 0px 0px 10px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+  }
 }
 
 .controls {
 }
 
 .controls-slider-main {
+  display: flex;
+  align-items: center;
 
   // .controls-slider-main__dotts
-  &__dotts {}
+  &__dotts {
+    flex: 1 1 auto;
+  }
 
   // .controls-slider-main__arrows
   &__arrows {}
