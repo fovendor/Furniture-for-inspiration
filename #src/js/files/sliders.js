@@ -61,7 +61,7 @@ if (sliderScrollItems.length > 0) {
 function sliders_bild_callback(params) { }
 
 if (document.querySelector('.slider-main__body')) {
-	new Swiper('.slider-main__body', {
+	var mySwiper = new Swiper('.slider-main__body', {
 		observer: true,
 		observeParents: true,
 		slidesPerView: 1,

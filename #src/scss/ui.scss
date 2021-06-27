@@ -13,11 +13,13 @@
   grid-template-columns: repeat(2, 48px);
   column-gap: 8px;
 }
+
 .slider-arrow {
   border-radius: 50%;
   height: 48px;
   background-color: hsla(23, 72%, 68%, 0.32);
   transition: all .2s ease 0s;
+
   // .slider-arrow_prev
   &_prev {
     display: flex;
@@ -64,6 +66,9 @@
 .swiper-pagination-bullets {
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: $md2+px) {
+    justify-content: center;
+  }
 }
 
 .swiper-pagination-bullet {
