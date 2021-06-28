@@ -1,8 +1,8 @@
 node_modules/
+/#src/img/
 .vscode/
 res.rar
 howtouse.txt
 gulpfile.js
 package-lock.json
 package.json
--- Funio.rar

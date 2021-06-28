@@ -35,6 +35,9 @@ $orangeColor: #E89F71;
 $grayColor: #898989;
 $darkGrayColor: #616161;
 $borderColor: #D8D8D8;
+$sliderBackgroundLight: #FCF8F3;
+$sliderBackgroundObscure: #F9F1E7;
+$actionsProductsColor: rgba(58, 58, 58, 0.72);
 
 $footerMarginBottom: 0px 0px (16px/24px * 1em) 0px;
 
@@ -43,7 +46,6 @@ $footerMarginBottom: 0px 0px (16px/24px * 1em) 0px;
 //<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
 @import "null";
 body {
-  background-color: #F9F1E7;
 	color: $mainColor;
 	&._lock {
 		overflow: hidden;
@@ -83,10 +85,510 @@ body {
 @import "popup";
 @import "header";
 @import "footer";
-@import "home";
 //</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
 
 //<ОСНОВНОЙ БЛОК>====================================================================================================
+//<СЛАЙДЕР>==========================================================================================================
 .page {
 	flex: 1 1 auto;
+    // .page__main-slider
+    &__main-slider {
+    }
+    &__advantages {
+    }
+    &__products {
+    }
 }
+
+.main-slider {
+  background-color: $sliderBackgroundLight;
+  // .main-slider__container
+  &__container {
+    position: relative;
+    @media (min-width: $md3+px) {
+      // Fucking color block
+      &::before {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        right: 376px;
+        content: "";
+        background-color: $sliderBackgroundObscure;
+      }
+    }
+  }
+
+  // .main-slider__body
+  &__body {
+    padding: 140px 0px 0px 0px;
+    position: relative;
+    z-index: 2;
+    @media (min-width: $md2+px) {
+      display: flex;
+    }
+    @media (max-width: $md2+px) {
+      padding: 80px 0px 0px 0px;
+    }
+    @media (max-width: $md3+px) {
+      padding: 50px 0px 0px 0px;
+    }
+  }
+
+  // .main-slider__content
+  &__content {
+    align-self: flex-;
+    flex: 0 0 (494 / 1240 * 100%);
+    @include adaptiv-value ("margin-bottom", 80, 20, 1);
+    @media (max-width: $md2+px) {
+      margin: 0px -15px 0px -15px;
+    }
+  }
+
+  // .main-slider__slider
+  &__slider {
+    align-self: flex-end;
+    flex: 1 1 auto;
+    min-width: 0; // чтобы свайпер с ума не сходил
+    @media (min-width: $md2+px) {
+      padding-left: 32px;
+    }
+  }
+}
+
+.content-main {
+  position: relative;
+  padding: 15px;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.72);
+  @media (min-width: $md2+px) {
+    @include adaptiv-value(padding, 60, 1, 1);
+    // экспериментальная технология, не везде поддерживается
+    @supports ((-webkit-backdrop-filter: blur(25px)) or (backdrop-filter: blur(25px))) {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(25px);
+    }
+
+  }
+  // .content-main__title
+  &__title {
+    font-weight: 700;
+    @include adaptiv-value ("font-size", 56, 20, 1);
+    @include adaptiv-value ("line-height", 67, 30, 1);
+    &:not(:last-child) {
+      margin: 0px 0px (16px / 56px * 1em) 0px;
+    }
+  }
+
+  // .content-main__text
+  &__text {
+    font-weight: 500;
+    font-size: 20px;
+    color: $grayColor;
+    @include adaptiv-value ("font-size", 20, 14, 1);
+    @include adaptiv-value ("line-height", 30, 20, 1);
+    &:not(:last-child) {
+      margin: 0px 0px (48px / 20px * 1em) 0px;
+    }
+  }
+
+  // .content-main__button
+  &__button {
+    width: 100%;
+    @include adaptiv-value ("min-height", 78, 45, 1);
+    font-weight: 600;
+    @include adaptiv-value ("font-size", 20, 14, 1);
+    @include adaptiv-value ("line-height", 30, 20, 1);
+    color: #FFFFFF;
+    background-color: $orangeColor;
+    @media (any-hover: hover) {
+      &:hover {
+        background: #b26e43;
+      }
+    }
+  }
+}
+
+.slider-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  @media (max-width: $md2+px) {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  // .slider-main__controls
+  &__controls {
+    align-self: stretch;
+    margin-bottom: 20px;
+    @media (max-width: $md2+px) {
+      margin: 10px 0px 10px 0px;
+      data-swiper-parallax-opacity: "none";
+      data-swiper-parallax-x: "-100%";
+    }
+  }
+
+  // .slider-main__body
+  &__body {
+    overflow: visible;
+    @media (min-width: $md2+px) {
+      @include adaptiv-value ("width", 934, 290, 1); // for resoluton 320px: width=320px - padding(left,right)=15px = 290px
+    }
+    @media (max-width: $md2+px) {
+      margin: 0px -15px 0px -15px;
+    }
+  }
+
+  // .slider-main__slide
+  &__slide {
+    position: relative;
+  }
+
+  // .slider-main__image
+  &__image {
+    padding: 0px 0px 59.4% 0px;
+  }
+
+  // .slider-main__content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    min-width: 295px;
+    max-height: 300px;
+    overflow: auto;
+    color: inherit;
+    @include adaptiv-value ("padding", 24, 14, 1);
+    background: rgba(255, 255, 255, 0.72);
+    @media (min-width: $md3+px) {
+      position: absolute;
+      min-width: 350px;
+      @include adaptiv-value ("right", 40, 0, 1);
+      @include adaptiv-value ("bottom", 40, 0, 1);
+    }
+    @supports ((-webkit-backdrop-filter: blur(25px)) or (backdrop-filter: blur(25px))) {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(25px);
+    }
+  }
+
+  // .slider-main__title
+  &__title {
+    &:not(:last-child) {
+      margin: 0px 0px (4px / 28px * 1em) 0px;
+    }
+    @include adaptiv-value ("font-size", 28, 22, 1);
+    @include adaptiv-value ("line-height", 34, 26, 1);
+    font-weight: 600;
+
+  }
+
+  // .slider-main__text
+  &__text {
+    &:not(:last-child) {
+      margin: 0px 0px (8px / 16px * 1em) 0px;
+    }
+    @include adaptiv-value ("font-size", 16, 10, 1);
+    @include adaptiv-value ("line-height", 24, 16, 1);
+    font-weight: 500;
+    color: $grayColor;
+  }
+
+  // .slider-main__price
+  &__price {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    @include adaptiv-value ("font-size", 20, 12, 1);
+    @include adaptiv-value ("line-height", 30, 18, 1);
+    font-weight: 600;
+    &::before {
+      margin: 0px 0px 0px 10px;
+      font-weight: 700;
+      font-size: 13px;
+      @media (max-width: $md2+px) {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.controls-slider-main {
+  display: flex;
+  align-items: center;
+
+  // .controls-slider-main__dotts
+  &__dotts {
+    flex: 1 1 auto;
+    @media (max-width: $md2+px) {
+      margin: 0px -15px 0px -15px;
+    }
+  }
+
+  // .controls-slider-main__arrows
+  &__arrows {
+    @media (max-width: $md2+px) {
+      display: none;
+    }
+  }
+}
+
+//</СЛАЙДЕР>==========================================================================================================
+
+//<ПРЕИМУЩЕСТВА>==========================================================================================================
+.advantages {
+	@include adaptiv-value ("padding-top", 88, 30, 1);
+	@include adaptiv-value ("padding-bottom", 88, 30, 1);
+
+		// .advantages__container
+		&__container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      @media (max-width: $md3+px) {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+		// .advantages__item
+		&__item {
+      display: inline-grid;
+      padding: 15px 0;
+      grid-template: auto auto / 85px 1fr;
+      @media (max-width: $md2+px) {
+        min-width: 280px;
+      }
+      @media (max-width: $md3+px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+		// .advantages__icon
+		&__icon {
+      text-align: center;
+      align-self: center;
+      grid-row: span 2;
+      @media (max-width: $md3+px) {
+        padding: 0px 15px 0px 0px;
+      }
+    }
+
+		// .advantages__title
+    &__title {
+      margin: 0px 0px 2px/18px * 1em 0px;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 150%;
+    }
+
+    // .advantages__text
+    &__text {
+      line-height: 150%;
+      color: $grayColor;
+    }
+}
+
+//</ПРЕИМУЩЕСТВА>==========================================================================================================
+
+//<ТОВАРЫ>==========================================================================================================
+
+.products {
+  @include adaptiv-value ("padding-bottom", 44, 25, 1);
+
+  // .products__container
+  &__container {}
+
+  // .products__title
+  &__title {
+    margin: 0px 0px (32px / 40px * 1em) 0px;
+  }
+
+  // .products__items
+  &__items {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+    grid-template-columns: repeat();
+  }
+
+  // .products__item
+  &__item {}
+}
+
+.item-product {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: #F4F5F7;
+	@media (any-hover: hover) {
+		&:hover {
+			.item-product__actions {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+	}
+
+  // .item-product__labels
+  &__labels {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    @include adaptiv-value ("right", 24, 10, 1);
+    @include adaptiv-value ("top", 24, 10, 1);
+    z-index: 2;
+  }
+
+  // .item-product__label
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 48px;
+    width: 48px;
+    font-weight: 500;
+    border-radius: 50%;
+    color: #FFFFFF;
+    &:not(:last-child) {
+      margin: 0px 0px 10px 0px;
+    }
+
+    // .item-product__label_sale
+    &_sale {
+      background-color: #E97171;
+    }
+
+    // .item-product__label_new
+    &_new {
+      background-color: #2EC1AC;
+    }
+  }
+
+  // .item-product__image
+  &__image {
+    padding: 0px 0px (301px / 285px * 100%) 0px;
+  }
+
+  // .item-product__body
+  &__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: 16px 16px 30px 16px;
+  }
+
+  // .item-product__content
+  &__content {
+    flex: 1 1 auto;
+  }
+
+  // .item-product__title
+  &__title {
+    margin: 0px 0px (8px / 24px * 1em ) 0px;
+    font-weight: 600;
+    @include adaptiv-value ("font-size", 24, 14, 1);
+    @include adaptiv-value ("line-height", 29, 18, 1);
+    color: $mainColor;
+  }
+
+  // .item-product__text
+  &__text {
+    margin: 0px 0px (8px / 24px * 1em ) 0px;
+    font-weight: 500;
+    @include adaptiv-value ("font-size", 16, 10, 1);
+    @include adaptiv-value ("line-height", 24, 14, 1);
+    color: $grayColor;
+  }
+
+  // .item-product__prices
+  &__prices {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  // .item-product__price
+  &__price {
+    margin: 0px (16px / 20px * 1em ) 0px 0px;
+    font-weight: 600;
+    @include adaptiv-value ("font-size", 20, 12, 1);
+    @include adaptiv-value ("line-height", 30, 20, 1);
+    color: $mainColor;
+
+    // .item-product__price_old
+    &_old {
+      font-weight: 500;
+      @include adaptiv-value ("font-size", 16, 12, 1);
+      @include adaptiv-value ("line-height", 24, 16, 1);
+      text-decoration: line-through;
+      color: #B0B0B0;
+    }
+  }
+
+  // .item-product__actions
+  &__actions {
+    @media (any-hover: none) {
+      padding: 15px 0px 0px 0px;
+    }
+    @media (any-hover:hover) {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      transition: all .2s ease-in-out 0s;
+      opacity: 0;
+      visibility: hidden;
+      background-color: $actionsProductsColor;
+    }
+  }
+}
+
+.actions-product {
+  // .actions-product__body
+  &__body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  // .actions-product__button
+  &__button {
+    flex: 1 1 100%;
+    &:not(:last-child) {
+      margin: 0px 0px 24px 0px;
+    }
+  }
+
+  // .actions-product__link
+  &__link {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: inherit;
+    transition: color .2s ease 0s;
+    &::before {
+      margin: 0px 10px 0px 0px;
+      font-size: 16px;
+    }
+    @media (any-hover:hover) {
+      color: #fff;
+      &:hover {
+        color: $orangeColor;
+      }
+    }
+  }
+}
+
+
+
+
+//<ТОВАРЫ>==========================================================================================================

@@ -1,10 +1,126 @@
 //<ОСНОВНОЙ БЛОК>====================================================================================================
 
+._title {
+  text-align: center;
+  font-weight: 700;
+  @include adaptiv-value ("font-size", 40, 22, 1);
+  @include adaptiv-value ("line-height", 48, 28, 1);
+
+  color: $mainColor;
+}
+
 ._footer-title {
   @include adaptiv-value("font-size", 24, 20, 1);
   line-height: 29 / 24 * 100%;
   color: #000;
   font-weight: 700;
+}
+
+
+.slider-arrows {
+  display: grid;
+  grid-template-columns: repeat(2, 48px);
+  column-gap: 8px;
+}
+
+.slider-arrow {
+  border-radius: 50%;
+  height: 48px;
+  background-color: hsla(23, 72%, 68%, 0.32);
+  transition: all .2s ease 0s;
+
+  // .slider-arrow_prev
+  &_prev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #E89F71;
+    &::before {
+      text-align: center;
+      font-size: 10px;
+      transform: translateX(-1.5px) rotate(90deg);
+    }
+  }
+
+  // .slider-arrow_next
+  &_next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    &::before {
+      font-size: 20px;
+      text-align: center;
+      transform: translateX(2px) rotate(270deg);
+    }
+  }
+  @media (any-hover:hover) {
+    &:hover {
+      background-color: $orangeColor;
+      color: #fff;
+    }
+  }
+  &_white {
+    background-color: #fff;
+    box-shadow: 0px 4px 14px 1px rgba(0, 0, 0, 0.16);
+    @media (any-hover:hover) {
+      &:hover {
+        border-color: $orangeColor;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.swiper-pagination-bullets {
+  display: flex;
+  flex-wrap: wrap;
+  @media (max-width: $md2+px) {
+    justify-content: center;
+  }
+}
+
+.swiper-pagination-bullet {
+  display: flex;
+  flex: 0 0 27px;
+  height: 27px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px 0px 2px 0px;
+  cursor: pointer;
+  &:not(:last-child) {
+    margin-right: 12px;
+  }
+  &::after {
+    content: "";
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: #D8D8D8;
+    transition: background-color, .2s ease 0s;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: auto;
+    left: auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid hsla(23, 72%, 68%, 0.7);
+    transition: transform .3s ease 0s;
+    transform: scale(0);
+  }
+}
+
+.swiper-pagination-bullet-active {
+  &::after {
+    background-color: $orangeColor;
+  }
+  &::before {
+    transform: scale(1);
+  }
 }
 
 //</ОСНОВНОЙ БЛОК>====================================================================================================
