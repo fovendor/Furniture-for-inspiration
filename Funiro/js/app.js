@@ -1180,7 +1180,6 @@ headerObserver.observe(headerElement);
 
   function documentMobileRes () {
     if (window.innerWidth < 768 && isMobile.any()) {
-
 /* ----------------------- Удаляю параллакс эффект, дабы не замедлять страницу на мобилках ------------------------- */
       swipeContent
         .forEach(el => Array

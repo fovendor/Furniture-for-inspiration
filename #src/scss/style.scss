@@ -417,6 +417,19 @@ body {
 
   // .products__item
   &__item {}
+
+  // .products__footer
+  &__footer {
+    text-align: center;
+    padding: 32px 0px 0px 0px;
+  }
+
+  // .products__more
+  &__more {
+    border: 1px solid $orangeColor;
+    min-width: 245px;
+  }
+
 }
 
 .item-product {
