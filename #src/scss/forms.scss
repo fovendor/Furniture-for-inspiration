@@ -25,6 +25,18 @@
   text-align: center;
 	padding: 0px 15px;
   transition: .2s;
+
+    // .btn_white
+    &_white {
+      color: $orangeColor;
+      background-color: #fff;
+      @media (any-hover:hover) {
+        &:hover {
+          background-color: $orangeColor;
+          color: #fff;
+        }
+      }
+    }
 }
 //</BUTTONS>====================================================================================================
 

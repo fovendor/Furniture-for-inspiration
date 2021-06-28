@@ -37,6 +37,7 @@ $darkGrayColor: #616161;
 $borderColor: #D8D8D8;
 $sliderBackgroundLight: #FCF8F3;
 $sliderBackgroundObscure: #F9F1E7;
+$actionsProductsColor: rgba(58, 58, 58, 0.72);
 
 $footerMarginBottom: 0px 0px (16px/24px * 1em) 0px;
 
@@ -92,6 +93,10 @@ body {
 	flex: 1 1 auto;
     // .page__main-slider
     &__main-slider {
+    }
+    &__advantages {
+    }
+    &__products {
     }
 }
 
@@ -330,3 +335,260 @@ body {
 }
 
 //</СЛАЙДЕР>==========================================================================================================
+
+//<ПРЕИМУЩЕСТВА>==========================================================================================================
+.advantages {
+	@include adaptiv-value ("padding-top", 88, 30, 1);
+	@include adaptiv-value ("padding-bottom", 88, 30, 1);
+
+		// .advantages__container
+		&__container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      @media (max-width: $md3+px) {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+		// .advantages__item
+		&__item {
+      display: inline-grid;
+      padding: 15px 0;
+      grid-template: auto auto / 85px 1fr;
+      @media (max-width: $md2+px) {
+        min-width: 280px;
+      }
+      @media (max-width: $md3+px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+		// .advantages__icon
+		&__icon {
+      text-align: center;
+      align-self: center;
+      grid-row: span 2;
+      @media (max-width: $md3+px) {
+        padding: 0px 15px 0px 0px;
+      }
+    }
+
+		// .advantages__title
+    &__title {
+      margin: 0px 0px 2px/18px * 1em 0px;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 150%;
+    }
+
+    // .advantages__text
+    &__text {
+      line-height: 150%;
+      color: $grayColor;
+    }
+}
+
+//</ПРЕИМУЩЕСТВА>==========================================================================================================
+
+//<ТОВАРЫ>==========================================================================================================
+
+.products {
+  @include adaptiv-value ("padding-bottom", 44, 25, 1);
+
+  // .products__container
+  &__container {}
+
+  // .products__title
+  &__title {
+    margin: 0px 0px (32px / 40px * 1em) 0px;
+  }
+
+  // .products__items
+  &__items {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+    grid-template-columns: repeat();
+  }
+
+  // .products__item
+  &__item {}
+}
+
+.item-product {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: #F4F5F7;
+	@media (any-hover: hover) {
+		&:hover {
+			.item-product__actions {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+	}
+
+  // .item-product__labels
+  &__labels {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    @include adaptiv-value ("right", 24, 10, 1);
+    @include adaptiv-value ("top", 24, 10, 1);
+    z-index: 2;
+  }
+
+  // .item-product__label
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 48px;
+    width: 48px;
+    font-weight: 500;
+    border-radius: 50%;
+    color: #FFFFFF;
+    &:not(:last-child) {
+      margin: 0px 0px 10px 0px;
+    }
+
+    // .item-product__label_sale
+    &_sale {
+      background-color: #E97171;
+    }
+
+    // .item-product__label_new
+    &_new {
+      background-color: #2EC1AC;
+    }
+  }
+
+  // .item-product__image
+  &__image {
+    padding: 0px 0px (301px / 285px * 100%) 0px;
+  }
+
+  // .item-product__body
+  &__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: 16px 16px 30px 16px;
+  }
+
+  // .item-product__content
+  &__content {
+    flex: 1 1 auto;
+  }
+
+  // .item-product__title
+  &__title {
+    margin: 0px 0px (8px / 24px * 1em ) 0px;
+    font-weight: 600;
+    @include adaptiv-value ("font-size", 24, 14, 1);
+    @include adaptiv-value ("line-height", 29, 18, 1);
+    color: $mainColor;
+  }
+
+  // .item-product__text
+  &__text {
+    margin: 0px 0px (8px / 24px * 1em ) 0px;
+    font-weight: 500;
+    @include adaptiv-value ("font-size", 16, 10, 1);
+    @include adaptiv-value ("line-height", 24, 14, 1);
+    color: $grayColor;
+  }
+
+  // .item-product__prices
+  &__prices {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  // .item-product__price
+  &__price {
+    margin: 0px (16px / 20px * 1em ) 0px 0px;
+    font-weight: 600;
+    @include adaptiv-value ("font-size", 20, 12, 1);
+    @include adaptiv-value ("line-height", 30, 20, 1);
+    color: $mainColor;
+
+    // .item-product__price_old
+    &_old {
+      font-weight: 500;
+      @include adaptiv-value ("font-size", 16, 12, 1);
+      @include adaptiv-value ("line-height", 24, 16, 1);
+      text-decoration: line-through;
+      color: #B0B0B0;
+    }
+  }
+
+  // .item-product__actions
+  &__actions {
+    @media (any-hover: none) {
+      padding: 15px 0px 0px 0px;
+    }
+    @media (any-hover:hover) {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      transition: all .2s ease-in-out 0s;
+      opacity: 0;
+      visibility: hidden;
+      background-color: $actionsProductsColor;
+    }
+  }
+}
+
+.actions-product {
+  // .actions-product__body
+  &__body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  // .actions-product__button
+  &__button {
+    flex: 1 1 100%;
+    &:not(:last-child) {
+      margin: 0px 0px 24px 0px;
+    }
+  }
+
+  // .actions-product__link
+  &__link {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: inherit;
+    transition: color .2s ease 0s;
+    &::before {
+      margin: 0px 10px 0px 0px;
+      font-size: 16px;
+    }
+    @media (any-hover:hover) {
+      color: #fff;
+      &:hover {
+        color: $orangeColor;
+      }
+    }
+  }
+}
+
+
+
+
+//<ТОВАРЫ>==========================================================================================================

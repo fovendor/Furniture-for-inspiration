@@ -1,5 +1,14 @@
 //<ОСНОВНОЙ БЛОК>====================================================================================================
 
+._title {
+  text-align: center;
+  font-weight: 700;
+  @include adaptiv-value ("font-size", 40, 22, 1);
+  @include adaptiv-value ("line-height", 48, 28, 1);
+
+  color: $mainColor;
+}
+
 ._footer-title {
   @include adaptiv-value("font-size", 24, 20, 1);
   line-height: 29 / 24 * 100%;
