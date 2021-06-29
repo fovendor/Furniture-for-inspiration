@@ -1152,6 +1152,16 @@ window.onload = function () {
 		if (targetElement.classList.contains('actions-product__button')) {
 			editLabel(targetElement);
 		}
+    /* ---------------------- Отслеживаем нажатие на иконку корзины/клик в пустоту/клик на кнопку add to cart.  --------------- */
+    /* ---------------------- При клике на кнопку add to cart при открытой корзине, она не закроется, а обновится --------------- */
+    if (targetElement.classList.contains('cart-header__icon') || targetElement.closest('.cart-header__icon')) {
+      if (document.querySelector('.cart-list').children.length > 0) {
+        document.querySelector('.cart-header').classList.toggle('_active');
+      }
+      e.preventDefault();
+		} else if (!targetElement.closest('.cart-header') && !targetElement.classList.contains('actions-product__button')) {
+      document.querySelector('.cart-header').classList.remove('_active');
+    }
   }
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------- */
@@ -1407,13 +1417,32 @@ headerObserver.observe(headerElement);
 		const cartProduct = document.querySelector(`[data-cart-pid="${productId}"]`);
 		const cartList = document.querySelector('.cart-list');
 
-		//Добавляем
+/* ---- Добавляем спан в конец, после cart-header__icon и инкрементом увеличиваем количество при новых кликах на add to cart --------*/
 		if (productAdd) {
 			if (cartQuantity) {
 				cartQuantity.innerHTML = ++cartQuantity.innerHTML;
 			} else {
 				cartIcon.insertAdjacentHTML('beforeend', `<span>1</span>`);
 			}
+      if (!cartProduct) {
+				const product = document.querySelector(`[data-pid="${productId}"]`);
+				const cartProductImage = product.querySelector('.item-product__image').innerHTML;
+				const cartProductTitle = product.querySelector('.item-product__title').innerHTML;
+				const cartProductContent = `
+			<a href="" class="cart-list__image _ibg">${cartProductImage}</a>
+			<div class="cart-list__body">
+				<a href="" class="cart-list__title">${cartProductTitle}</a>
+				<div class="cart-list__quantity">Quantity: <span>1</span></div>
+				<a href="" class="cart-list__delete">Delete</a>
+			</div>`;
+				cartList.insertAdjacentHTML('beforeend', `<li data-cart-pid="${productId}" class="cart-list__item">${cartProductContent}</li>`);
+			}
+      // else {
+
+/* ---- Увеличение количества товара на единицу. Расскоментить после добавления всех нужных кнопочек (+ и -) --------*/
+				// const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+				// cartProductQuantity.innerHTML = ++cartProductQuantity.innerHTML;
+			// }
     }
   }
 
