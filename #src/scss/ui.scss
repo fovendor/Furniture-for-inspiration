@@ -9,6 +9,35 @@
   color: $mainColor;
 }
 
+._flyImage._ibg {
+  position: fixed;
+  z-index: 100;
+  opacity: 1;
+  transition: all .5s ease-in-out 0s;
+}
+
+._hold {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  cursor: default;
+  color: #fff;
+  background-color: rgba(68, 68, 68, 0.708);
+  &::before {
+    display: block;
+    text-align: center;
+    align-self: center;
+    padding-left: 15px;
+    font-size: 18px;
+  }
+  @media (any-hover:hover) {
+    &:hover {
+      color: #fff;
+      background-color: rgba(68, 68, 68, 0.708);
+    }
+  }
+}
+
 ._footer-title {
   @include adaptiv-value("font-size", 24, 20, 1);
   line-height: 29 / 24 * 100%;

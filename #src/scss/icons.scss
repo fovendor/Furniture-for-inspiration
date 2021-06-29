@@ -25,6 +25,10 @@
 	}
 }
 
+._icon-checkmark:before {
+  content: "\e909";
+  display: none;
+}
 ._icon-arrow-down:before {
   content: "\e900";
 }
@@ -39,7 +43,6 @@
 }
 ._icon-location:before {
   content: "\e904";
-  font-size: 18px;
 }
 ._icon-phone:before {
   content: "\e905";
