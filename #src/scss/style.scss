@@ -437,6 +437,7 @@ body {
   position: relative;
   flex-direction: column;
   background-color: #F4F5F7;
+  transition: all .5s ease 0s;
 	@media (any-hover: hover) {
 		&:hover {
 			.item-product__actions {
