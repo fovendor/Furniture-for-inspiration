@@ -1831,6 +1831,16 @@ body.ie ._ibg img {
   grid-template-columns: repeat();
 }
 
+.products__footer {
+  text-align: center;
+  padding: 32px 0px 0px 0px;
+}
+
+.products__more {
+  border: 1px solid #E89F71;
+  min-width: 245px;
+}
+
 .item-product {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1841,6 +1851,9 @@ body.ie ._ibg img {
       -ms-flex-direction: column;
           flex-direction: column;
   background-color: #F4F5F7;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
 }
 
 .item-product__labels {

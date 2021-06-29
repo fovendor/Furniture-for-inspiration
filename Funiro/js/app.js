@@ -1137,6 +1137,11 @@ window.onload = function () {
     else if (!targetElement.closest('.search-form') && document.querySelector('.search-form._active')) {
       document.querySelector('.search-form').classList.remove('_active');
     }
+    /* ----------------------!1. Получаем Show More и вызываем функцию getProducts, описанную ниже по коду --------------- */
+		if (targetElement.classList.contains('products__more')) {
+			getProducts(targetElement);
+			e.preventDefault();
+		}
   }
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------- */
@@ -1180,7 +1185,6 @@ headerObserver.observe(headerElement);
 
   function documentMobileRes () {
     if (window.innerWidth < 768 && isMobile.any()) {
-
 /* ----------------------- Удаляю параллакс эффект, дабы не замедлять страницу на мобилках ------------------------- */
       swipeContent
         .forEach(el => Array
@@ -1190,6 +1194,130 @@ headerObserver.observe(headerElement);
     }
   }
 
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* -------------------- 1. Обработчик нажатия на кнопку Show More. Получаем саму кнопку при нажатии. Этот пункт выше описан, помечу его как !1 ------------------- */
+/* ---------------------------------------------------- 2. Если у кнопки нет класса _hold, то добавляем его ------------------------------------------------------ */
+/* -------- 3. Получаем путь к файлу json со всеми продуктами и их атрибутами, а дальше через fetch(file, {method: "GET"}) забираем в переменную сам файл -------- */
+/* ----------------------- 4. Если файл НЕ находится в папке json и НЕ поместился в переменную response, то выводится ошибка наличия файла ----------------------- */
+/* ------- 5. Если файл находится в папке json и поместился в переменную response, то помещаем содержимое response в result для работы функции loadProducts ------ */
+/* ---- 6. После этого удаляем класс _hold у кнопки и дестроим саму кнопку, т.к. будет выведено содержимое json и она будет не нужна (нечего больше показать) ---- */
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+  async function getProducts(button) {
+    if (!button.classList.contains('_hold')) {
+      button.classList.add('_hold');
+      const file = "json/products.json";
+      let response = await fetch(file, {
+        method: "GET"
+      });
+      if (response.ok) {
+        let result = await response.json();
+        loadProducts(result);
+        button.classList.remove('_hold');
+        button.remove();
+      } else {
+        alert ("Нет файла json, проверьте путь к файлу");
+      }
+    }
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ---- Загрузчик контента на страницу. Самый геморройный блок кода загрузки товаров, т.к. некоторые переменные - массивы и просто так в html не встроить -------- */
+/* ------------ Для формирования шаблона карточки товара был взят оригинальный код html из article class="products__item" и разбит на составные части ------------ */
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+  function loadProducts(data) {
+    const productsItems = document.querySelector('.products__items');
+
+      data.products.forEach(item => {
+        const productId = item.id;
+        const productUrl = item.url;
+        const productImage = item.image;
+        const productTitle = item.title;
+        const productText = item.text;
+        const productPrice = item.price;
+        const productOldPrice = item.priceOld;
+        const productShareUrl = item.shareUrl;
+        const productLikeUrl = item.likeUrl;
+        const productLabels = item.labels;
+
+        let productTemplateStart = `<article data-pid="${productId}" class="products__item item-product">`;
+        let productTemplateEnd = `</article>`;
+
+        let productTemplateLabels = '';
+        if (productLabels) {
+          let productTemplateLabelsStart = `<div class="item-product__labels">`;
+          let productTemplateLabelsEnd = `</div>`;
+          let productTemplateLabelsContent = '';
+
+          productLabels.forEach(labelItem => {
+            productTemplateLabelsContent += `<div class="item-product__label item-product__label_${labelItem.type}">${labelItem.value}</div>`;
+          });
+
+          productTemplateLabels += productTemplateLabelsStart;
+          productTemplateLabels += productTemplateLabelsContent;
+          productTemplateLabels += productTemplateLabelsEnd;
+        }
+
+        let productTemplateImage = `
+          <a href="${productUrl}" class="item-product__image _ibg">
+            <img src="img/products/${productImage}" alt="${productTitle}">
+          </a>
+        `;
+
+        let productTemplateBodyStart = `<div class="item-product__body">`;
+        let productTemplateBodyEnd = `</div>`;
+
+        let productTemplateContent = `
+          <div class="item-product__content">
+            <h3 class="item-product__title">${productTitle}</h3>
+            <div class="item-product__text">${productText}</div>
+          </div>
+        `;
+
+        let productTemplatePrices = '';
+        let productTemplatePricesStart = `<div class="item-product__prices">`;
+        let productTemplatePricesCurrent = `<div class="item-product__price">Rp ${productPrice}</div>`;
+        let productTemplatePricesOld = `<div class="item-product__price item-product__price_old">Rp ${productOldPrice}</div>`;
+        let productTemplatePricesEnd = `</div>`;
+
+        productTemplatePrices = productTemplatePricesStart;
+        productTemplatePrices += productTemplatePricesCurrent;
+
+        /* ------------ Если в карточке указана старая цена (есть в article), то оки - добавляем. Если нет - не добавляем ------------ */
+        if (productOldPrice) {
+          productTemplatePrices += productTemplatePricesOld;
+        }
+        productTemplatePrices += productTemplatePricesEnd;
+
+        let productTemplateActions = `
+          <div class="item-product__actions actions-product">
+            <div class="actions-product__body">
+              <a href="" class="actions-product__button btn btn_white">Add to cart</a>
+              <a href="${productShareUrl}" class="actions-product__link _icon-share">Share</a>
+              <a href="${productLikeUrl}" class="actions-product__link _icon-favorite">Like</a>
+            </div>
+          </div>
+        `;
+
+/* ------------ Сборщик карточки ------------ */
+        let productTemplateBody = '';
+        productTemplateBody += productTemplateBodyStart;
+        productTemplateBody += productTemplateContent;
+        productTemplateBody += productTemplatePrices;
+        productTemplateBody += productTemplateActions;
+        productTemplateBody += productTemplateBodyEnd;
+
+        let productTemplate = '';
+        productTemplate += productTemplateStart;
+        productTemplate += productTemplateLabels;
+        productTemplate += productTemplateImage;
+        productTemplate += productTemplateBody;
+        productTemplate += productTemplateEnd;
+
+        productsItems.insertAdjacentHTML('beforeend', productTemplate);
+      });
+    }
+  }
 
 }
 
