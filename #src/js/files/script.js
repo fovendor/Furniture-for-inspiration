@@ -32,10 +32,20 @@ window.onload = function () {
     else if (!targetElement.closest('.search-form') && document.querySelector('.search-form._active')) {
       document.querySelector('.search-form').classList.remove('_active');
     }
-    /* ----------------------!1. Получаем Show More и вызываем функцию getProducts, описанную ниже по коду --------------- */
+    /* ---------------------- Отслеживаем нажатие на Show More и вызываем функцию getProducts, описанную ниже по коду --------------- */
 		if (targetElement.classList.contains('products__more')) {
 			getProducts(targetElement);
 			e.preventDefault();
+		}
+    /* ---------------------- Отслеживаем нажатие на Add to cart и вызываем функцию addToCart, описанную ниже по коду --------------- */
+		if (targetElement.classList.contains('actions-product__button')) {
+			const productId = targetElement.closest('.item-product').dataset.pid;
+			addToCart(targetElement, productId);
+			e.preventDefault();
+		}
+    /* ---------------------- Отслеживаем нажатие на Add to cart и вызываем функцию editLabel, описанную ниже по коду --------------- */
+		if (targetElement.classList.contains('actions-product__button')) {
+			editLabel(targetElement);
 		}
   }
 
@@ -90,7 +100,7 @@ headerObserver.observe(headerElement);
   }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-/* -------------------- 1. Обработчик нажатия на кнопку Show More. Получаем саму кнопку при нажатии. Этот пункт выше описан, помечу его как !1 ------------------- */
+/* ----------------------------- 1. Обработчик нажатия на кнопку Show More. Получаем саму кнопку при нажатии. Этот пункт выше описан ----------------------------- */
 /* ---------------------------------------------------- 2. Если у кнопки нет класса _hold, то добавляем его ------------------------------------------------------ */
 /* -------- 3. Получаем путь к файлу json со всеми продуктами и их атрибутами, а дальше через fetch(file, {method: "GET"}) забираем в переменную сам файл -------- */
 /* ----------------------- 4. Если файл НЕ находится в папке json и НЕ поместился в переменную response, то выводится ошибка наличия файла ----------------------- */
@@ -187,7 +197,7 @@ headerObserver.observe(headerElement);
         let productTemplateActions = `
           <div class="item-product__actions actions-product">
             <div class="actions-product__body">
-              <a href="" class="actions-product__button btn btn_white">Add to cart</a>
+              <a href="" class="actions-product__button btn btn_white _icon-checkmark">Add to cart</a>
               <a href="${productShareUrl}" class="actions-product__link _icon-share">Share</a>
               <a href="${productLikeUrl}" class="actions-product__link _icon-favorite">Like</a>
             </div>
@@ -213,5 +223,95 @@ headerObserver.observe(headerElement);
       });
     }
   }
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------- 1. Обработчик нажатия на кнопку Add to cart. Получаем саму кнопку при нажатии (код написан выше) -------------------------------- */
+/* ----------------------------------------------- 2. Если у кнопки нет класса _hold, то добавляем его и класс _fly ---------------------------------------------- */
+/* -------------------------- 3. Получаем иконку с корзиной. 4. Получаем конкретный товар по его $pid. 5. Получаем картинку товара $pid. ------------------------- */
+/* --------- 6. Для анимации полёта картики товара в корзину получаем её из ранее созданной переменной и клонируем в новую переменную с помощью cloneNode -------- */
+/* ------------ 7. Получаем геометрию и координаты оригинальной картинки и применяем параметры оригинальной картинки к клону (позиция и геометрия): -------------- */
+/* ---- 7.1. Добавляем новые классы _flyImage _ibg клону productImageFly ----------------------------------------------------------------------------------------- */
+/* ---- 7.2. Присваиваем CSS-свойства и их атрибуты клону productImageFly ---------------------------------------------------------------------------------------- */
+/* ---- 7.3. Получаем позицию корзины ---------------------------------------------------------------------------------------------------------------------------- */
+/* ---- 7.4. Присваиваем CSS-свойства и их атрибуты клону productImageFly, меняя значения ранее созданных переменных на те, что получили от иконки корзины --------*/
+/* ---- 7.5. Добавляем дополнительные атрибуты и свойства width: 0px; height: 0px; opacity:0; для трансформации клона в полёте ----------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+  function addToCart(productButton, productId) {
+    if (!productButton.classList.contains('_hold')) {
+      productButton.classList.add('_hold');
+      productButton.classList.add('_fly');
+
+      const cart = document.querySelector('.cart-header__icon');
+      const product = document.querySelector(`[data-pid="${productId}"]`);
+      const productImage = product.querySelector('.item-product__image');
+
+      const productImageFly = productImage.cloneNode(true);
+
+      const productImageFlyWidth = productImage.offsetWidth;
+      const productImageFlyHeight = productImage.offsetHeight;
+      const productImageFlyTop = productImage.getBoundingClientRect().top;
+      const productImageFlyLeft = productImage.getBoundingClientRect().left;
+
+      productImageFly.setAttribute('class', '_flyImage _ibg');
+      productImageFly.style.cssText =
+      `
+        left: ${productImageFlyLeft}px;
+        top: ${productImageFlyTop}px;
+        width: ${productImageFlyWidth}px;
+        height: ${productImageFlyHeight}px;
+      `;
+
+      document.body.append(productImageFly);
+
+      const cartFlyLeft = cart.getBoundingClientRect().left;
+      const cartFlyTop = cart.getBoundingClientRect().top;
+
+      productImageFly.style.cssText =
+      `
+        left: ${cartFlyLeft}px;
+        top: ${cartFlyTop}px;
+        width: 0px;
+        height: 0px;
+        opacity:0;
+      `;
+
+/* ---- Проверка: если у кнопки появляется класс _fly после окончания трансформации клона --------*/
+      productImageFly.addEventListener('transitionend', function () {
+        if (productButton.classList.contains('_fly')) {
+          productImageFly.remove();
+          updateCart(productButton, productId);
+          productButton.classList.remove('_fly');
+        }
+      });
+    }
+  }
+
+/* ---- Дабы пользователь не клацал без конца на кнопку, меняю текст ссылки --------*/
+  function editLabel(caption) {
+    let buttonLabel = caption.target;
+    if (caption.innerHTML == "Add to cart")  {
+      caption.innerHTML = "Added";
+    };
+  }
+
+	function updateCart(productButton, productId, productAdd = true) {
+		const cart = document.querySelector('.cart-header');
+		const cartIcon = cart.querySelector('.cart-header__icon');
+		const cartQuantity = cartIcon.querySelector('span');
+		const cartProduct = document.querySelector(`[data-cart-pid="${productId}"]`);
+		const cartList = document.querySelector('.cart-list');
+
+		//Добавляем
+		if (productAdd) {
+			if (cartQuantity) {
+				cartQuantity.innerHTML = ++cartQuantity.innerHTML;
+			} else {
+				cartIcon.insertAdjacentHTML('beforeend', `<span>1</span>`);
+			}
+    }
+  }
+
+
 
 }
