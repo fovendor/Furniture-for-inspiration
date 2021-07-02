@@ -8,7 +8,7 @@
 
 window.onload = function () {
   document.addEventListener("click", documentActions);
-  document.addEventListener("touchstart", documentMobileRes);
+  document.addEventListener("touchstart", deleteParallax);
 
   function documentActions (e) {
     const targetElement = e.target;
@@ -16,7 +16,7 @@ window.onload = function () {
     if (window.innerWidth > 768 && isMobile.any()) {
       if (targetElement.classList.contains('menu__arrow')) {
         targetElement.closest('.menu__item').classList.toggle('_hover');
-        console.log('The user clicked on the arrow from a mobile device. Object "menu__item" assigned class _hover');
+        // console.log('The user clicked on the arrow from a mobile device. Object "menu__item" assigned class _hover');
       }
       // проверяю на клик в пустоту. дословно : проверяю, есть ли вообще объекты с классом _hover.
       if (!targetElement.closest('.menu__item') && document.querySelectorAll('.menu__item._hover').length > 0) {
@@ -25,7 +25,6 @@ window.onload = function () {
       }
     }
     if (targetElement.classList.contains('search-form__icon')) {
-      // console.log ('работает поиск');
       document.querySelector('.search-form').classList.toggle('_active');
     }
     // проверяю на клик в пустоту. снова тоже самое: если объект, по которому мы кликнули не содержит родителя .search-form, то выбираем потомка с классом _active и удаляем класс _active
@@ -43,10 +42,37 @@ window.onload = function () {
 			addToCart(targetElement, productId);
 			e.preventDefault();
 		}
+
     /* ---------------------- Отслеживаем нажатие на Add to cart и вызываем функцию editLabel, описанную ниже по коду --------------- */
 		if (targetElement.classList.contains('actions-product__button')) {
 			editLabel(targetElement);
 		}
+    /* ---------------------- Отслеживаем нажатие на иконку корзины/клик в пустоту/клик на кнопку add to cart.  --------------- */
+    /* ---------------------- При клике на кнопку add to cart при открытой корзине, она не закроется, а обновится --------------- */
+    if (targetElement.classList.contains('cart-header__icon') || targetElement.closest('.cart-header__icon')) {
+      if (document.querySelector('.cart-list').children.length > 0) {
+        document.querySelector('.cart-header').classList.toggle('_active');
+      }
+      e.preventDefault();
+		} else if (!targetElement.closest('.cart-header') && !targetElement.classList.contains('actions-product__button')) {
+      document.querySelector('.cart-header').classList.remove('_active');
+    }
+    /* ---------------------- Отслеживаем нажатие на ссылку удаления товара из корзины по клику на delete --------------- */
+    // ----------- После получения cart-list__delete, обращаемся к нему и получаем родителя этого объекта с классом cart-list__item и получаем его id
+    // ----------- Передаём в функцию updateCart нажатый объект и его родителя с его идентификатором. False означает, что мы не добавляем, а удаляем
+    if (targetElement.classList.contains('cart-list__delete')) {
+      const productId = targetElement.closest('.cart-list__item').dataset.cartPid;
+      updateCart(targetElement, productId, false);
+      e.preventDefault();
+		}
+    /* ---------------------- Отслеживаем нажатие на ссылку удаления товара из корзины по клику на Delete all items --------------- */
+    // ----------- После получения cart-list__delete, обращаемся к нему и получаем родителя этого объекта с классом cart-list__item и получаем его id
+    // ----------- Передаём в функцию updateCart нажатый объект и его родителя с его идентификатором. False означает, что мы не добавляем, а удаляем
+    if (targetElement.classList.contains('cart-list__delete-items')) {
+      const productId = targetElement.closest('.cart-list__item').dataset.cartPid;
+      updateCart(targetElement, productId, false);
+      e.preventDefault();
+    }
   }
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------- */
@@ -86,18 +112,66 @@ headerObserver.observe(headerElement);
 /* ------- После этого в теле цикла создаю функцию swipeAttributes, которая из каждого элемента массива с атрибутами удаляет атрибут data-swiper-parallax-x ------- */
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
-  var swipeContent = document.querySelectorAll (".slider-main__content");
+  const parallaxElement = document.querySelectorAll (".slider-main__content, .slider-rooms__content");
+  const parallaxArray = Array.prototype.slice.call(parallaxElement);
+  console.log(parallaxArray);
 
-  function documentMobileRes () {
+    function deleteParallax () {
     if (window.innerWidth < 768 && isMobile.any()) {
 /* ----------------------- Удаляю параллакс эффект, дабы не замедлять страницу на мобилках ------------------------- */
-      swipeContent
+      parallaxArray
+        .forEach(el => Array
+        .from(el.attributes)
+        .forEach(swipeAttributes => el.removeAttribute("data-swiper-parallax-y")) &
+      parallaxArray
         .forEach(el => Array
         .from(el.attributes)
         .forEach(swipeAttributes => el.removeAttribute("data-swiper-parallax-x"))
-      );
+      ));
     }
   }
+
+
+  // if (parallaxElement.hasAttribute("data-swiper-parallax-x")) {
+  //   console.log('zaebok');
+    // d.setAttribute("align", "center");
+  // }
+
+
+
+
+//   const parallaxElement = document.querySelectorAll (".slider-main__content, .slider-rooms__content");
+//   const parallaxArray = Array.prototype.slice.call(parallaxElement);
+//   var parallaxAttrs = parallaxElement.hasAttributes('data-swiper-parallax-x');
+//   console.log(parallaxAttrs);
+
+//   function deleteParallax () {
+//     if (window.innerWidth < 768 && isMobile.any()) {
+// /* ----------------------- Удаляю параллакс эффект, дабы не замедлять страницу на мобилках ------------------------- */
+//       parallaxArray
+//         .forEach(el => Array
+//         .from(el.attributes)
+//         .forEach(swipeAttributes => el.removeAttribute("data-swiper-parallax-x"))
+//       );
+//     }
+//   }
+
+
+  function clearDataAttributes(el){
+    if (el.hasAttributes()) {
+        var attrs = el.attributes;
+        var thisAttributeString = "";
+        for(var i = attrs.length - 1; i >= 0; i--) {
+            thisAttributeString = attrs[i].name + "-" + attrs[i].value;
+            el.removeAttribute(thisAttributeString);
+        }
+    }
+}
+
+// , .slider-rooms__content
+  // const str = 'Быть или не быть вот в чём вопрос.';
+  // console.log(str.includes(''));       // true
+
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------- 1. Обработчик нажатия на кнопку Show More. Получаем саму кнопку при нажатии. Этот пункт выше описан ----------------------------- */
@@ -225,7 +299,7 @@ headerObserver.observe(headerElement);
   }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-/* ----------------------------- 1. Обработчик нажатия на кнопку Add to cart. Получаем саму кнопку при нажатии (код написан выше) -------------------------------- */
+/* ---- 1. Обработчик нажатия на кнопку Add to cart. Получаем саму кнопку при нажатии (код написан выше) -------------------------------- */
 /* ----------------------------------------------- 2. Если у кнопки нет класса _hold, то добавляем его и класс _fly ---------------------------------------------- */
 /* -------------------------- 3. Получаем иконку с корзиной. 4. Получаем конкретный товар по его $pid. 5. Получаем картинку товара $pid. ------------------------- */
 /* --------- 6. Для анимации полёта картики товара в корзину получаем её из ранее созданной переменной и клонируем в новую переменную с помощью cloneNode -------- */
@@ -295,6 +369,23 @@ headerObserver.observe(headerElement);
     };
   }
 
+	// function clearCart(productId, productClear = true) {
+  //   const cart = document.querySelector('.cart-header');
+  //   const cartIcon = cart.querySelector('.cart-header__icon');
+  //   const cartQuantity = cartIcon.querySelector('span');
+	// 	const cartProduct = document.querySelector(`[data-cart-pid="${productId}"]`);
+	// 	const cartList = document.querySelector('.cart-list');
+
+  //   if (productClear) {
+  //     if (cartQuantity) {
+  //       cartQuantity.innerHTML = 0;
+  //     }
+  //     else {
+  //       cartIcon.insertAdjacentHTML('beforeend', `<span>0</span>`);
+  //     }
+  //   }
+  // }
+
 	function updateCart(productButton, productId, productAdd = true) {
 		const cart = document.querySelector('.cart-header');
 		const cartIcon = cart.querySelector('.cart-header__icon');
@@ -302,14 +393,85 @@ headerObserver.observe(headerElement);
 		const cartProduct = document.querySelector(`[data-cart-pid="${productId}"]`);
 		const cartList = document.querySelector('.cart-list');
 
-		//Добавляем
+/* ---- Добавляем спан в конец, после cart-header__icon и инкрементом увеличиваем количество при новых кликах на add to cart -------- */
 		if (productAdd) {
 			if (cartQuantity) {
 				cartQuantity.innerHTML = ++cartQuantity.innerHTML;
 			} else {
 				cartIcon.insertAdjacentHTML('beforeend', `<span>1</span>`);
 			}
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+/* ---- Проверяем, существует ли в корзине добавленный товар cartProduct и, если нет, создаём: ----- */
+/* ---- 1. Задаём все необходимые константы: название товара, изображение. Содержимое карточки формируем константой cartProductContent ----- */
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+    if (!cartProduct) {
+      const product = document.querySelector(`[data-pid="${productId}"]`);
+      const cartProductImage = product.querySelector('.item-product__image').innerHTML;
+      const cartProductTitle = product.querySelector('.item-product__title').innerHTML;
+      const cartProductContent = `
+        <a href="" class="cart-list__image _ibg">${cartProductImage}</a>
+        <div class="cart-list__body">
+          <a href="" class="cart-list__title">${cartProductTitle}</a>
+          <div class="cart-list__quantity">Quantity: <span>1</span></div>
+          <a href="" class="cart-list__delete">Delete</a>
+        </div>
+        <div class="cart-list__controls">
+          <a href="" class="cart-list__plus-item">Add one item</a>
+          <a href="" class="cart-list__delete-items">Delete all items</a>
+        <div>
+      `;
+			cartList.insertAdjacentHTML('beforeend', `<li data-cart-pid="${productId}" class="cart-list__item">${cartProductContent}</li>`);
+		}
+      else { // кнопка add to cart активна после единичного клика
+        const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+        cartProductQuantity.innerHTML = ++cartProductQuantity.innerHTML;
+      }
+      productButton.classList.remove('_hold');
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/* ---- Обработчик удаления товаров из корзины.  -------- */
+/* ------------ 1. Получаем количество товара в корзине, присваиваем число в константу cartProductQuantity ------------ */
+/* ------------ 2. Декремент уменьшает количество товара на единицу ------------ */
+/* ------------ 3. Если количество товара = 0, то удаляем товар из корзины ------------ */
+/* ------------ 4. После того, как удалили прошлый товар, минусуем из общего числа товаров циферку декрементом из cartQuantityValue и обновляем спан ------------ */
+/* ------------ 5. Если общее количество товара = 0, то удаляем спан и класс _active, что закроет корзину ------------ */
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+    } else {
+      const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+      cartProductQuantity.innerHTML = --cartProductQuantity.innerHTML;
+      if (!parseInt(cartProductQuantity.innerHTML)) {
+        cartProduct.remove();
+      }
+
+      const cartQuantityValue = --cartQuantity.innerHTML;
+      if (cartQuantityValue) {
+        cartQuantity.innerHTML = cartQuantityValue;
+      } else {
+        cartQuantity.remove();
+        cart.classList.remove('_active');
+      }
+
+      // const cartQuantityValue = (cartQuantity - cartProductQuantity).innerHTML;
+      // if (cartQuantityValue) {
+      //   cartQuantity.innerHTML = cartQuantityValue;
+      // } else {
+      //   cartQuantity.remove();
+      //   cart.classList.remove('_active');
+      // }
+
     }
+
+    /* ---- Увеличение количества товара на единицу. Расскоментить после добавления всех нужных кнопочек (+ и -) --------*/
+    // if const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+    // cartProductQuantity.innerHTML = ++cartProductQuantity.innerHTML;
+
+    // if (targetElement.classList.contains('.cart-list__plus-item')) {
+    //   const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+    //   addToCart(targetElement, productId);
+    //   e.preventDefault();
+    // }
+
   }
 
 
