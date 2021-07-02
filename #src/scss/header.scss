@@ -493,6 +493,13 @@
       margin: 0px 0px 15px 0px;
     }
   }
+  // .cart-list__controls
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 50px;
+  }
 }
 
 .icon-menu {
