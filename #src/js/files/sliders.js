@@ -67,7 +67,7 @@ if (document.querySelector('.slider-main__body')) {
 		slidesPerView: 1,
 		spaceBetween: 32,
 		watchOverflow: true,
-		speed: 800,
+		speed: 500,
 		loop: true,
 		loopAdditionalSlides: 5,
 		preloadImages: false,
@@ -91,7 +91,7 @@ if (document.querySelector('.slider-rooms__body')) {
 		observeParents: true,
 		slidesPerView: 'auto',
 		spaceBetween: 24,
-		speed: 800,
+		speed: 500,
 		loop: true,
 		watchOverflow: true,
 		loopAdditionalSlides: 5,
@@ -108,4 +108,43 @@ if (document.querySelector('.slider-rooms__body')) {
 			prevEl: '.slider-rooms .slider-arrow_prev',
 		}
 	});
+}
+
+if (document.querySelector('.slider-relax__body')) {
+	new Swiper('.slider-relax__body', {
+		observer: true,
+		observeParents: true,
+		slidesPerView: 3,
+		spaceBetween: 32,
+		speed: 300,
+		loop: true,
+		watchOverflow: true,
+		// Dotts
+		pagination: {
+			el: '.slider-relax__dotts',
+			clickable: true,
+		},
+		// Arrows
+		navigation: {
+			nextEl: '.slider-relax .slider-arrow_next',
+			prevEl: '.slider-relax .slider-arrow_prev',
+		},
+		breakpoints: {
+			// when window width is >= 320px
+			320: {
+				slidesPerView: 1.1,
+				spaceBetween: 15
+			},
+			// when window width is >= 768px
+			768: {
+				slidesPerView: 2,
+				spaceBetween: 20
+			},
+			// when window width is >= 992px
+			992: {
+				slidesPerView: 3,
+				spaceBetween: 32
+			}
+		}
+	})
 }

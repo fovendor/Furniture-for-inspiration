@@ -87,8 +87,10 @@
     &:hover {
       background-color: $orangeColor;
       color: #fff;
+      box-shadow: 0 0 5px rgba(116, 108, 108, 0.504);
     }
   }
+  // .slider-arrow__white
   &_white {
     background-color: #fff;
     box-shadow: 0px 4px 14px 1px rgba(0, 0, 0, 0.16);
@@ -98,6 +100,11 @@
         color: #fff;
       }
     }
+  }
+  // .slider-arrow_blue
+  &_blue {
+    color: #fff;
+    background-color: $dirtyBlueLight;
   }
 }
 

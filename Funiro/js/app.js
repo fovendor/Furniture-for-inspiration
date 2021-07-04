@@ -1021,7 +1021,7 @@ if (document.querySelector('.slider-main__body')) {
 		slidesPerView: 1,
 		spaceBetween: 32,
 		watchOverflow: true,
-		speed: 800,
+		speed: 500,
 		loop: true,
 		loopAdditionalSlides: 5,
 		preloadImages: false,
@@ -1045,7 +1045,7 @@ if (document.querySelector('.slider-rooms__body')) {
 		observeParents: true,
 		slidesPerView: 'auto',
 		spaceBetween: 24,
-		speed: 800,
+		speed: 500,
 		loop: true,
 		watchOverflow: true,
 		loopAdditionalSlides: 5,
@@ -1062,6 +1062,45 @@ if (document.querySelector('.slider-rooms__body')) {
 			prevEl: '.slider-rooms .slider-arrow_prev',
 		}
 	});
+}
+
+if (document.querySelector('.slider-relax__body')) {
+	new Swiper('.slider-relax__body', {
+		observer: true,
+		observeParents: true,
+		slidesPerView: 3,
+		spaceBetween: 32,
+		speed: 300,
+		loop: true,
+		watchOverflow: true,
+		// Dotts
+		pagination: {
+			el: '.slider-relax__dotts',
+			clickable: true,
+		},
+		// Arrows
+		navigation: {
+			nextEl: '.slider-relax .slider-arrow_next',
+			prevEl: '.slider-relax .slider-arrow_prev',
+		},
+		breakpoints: {
+			// when window width is >= 320px
+			320: {
+				slidesPerView: 1.1,
+				spaceBetween: 15
+			},
+			// when window width is >= 768px
+			768: {
+				slidesPerView: 2,
+				spaceBetween: 20
+			},
+			// when window width is >= 992px
+			992: {
+				slidesPerView: 3,
+				spaceBetween: 32
+			}
+		}
+	})
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------ */
@@ -1178,9 +1217,9 @@ headerObserver.observe(headerElement);
 /* ------- После этого в теле цикла создаю функцию swipeAttributes, которая из каждого элемента массива с атрибутами удаляет атрибут data-swiper-parallax-x ------- */
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
-  const parallaxElement = document.querySelectorAll (".slider-main__content, .slider-rooms__content");
-  const parallaxArray = Array.prototype.slice.call(parallaxElement);
-  console.log(parallaxArray);
+  const parallaxArray =
+    Array.prototype.slice.call(
+      document.querySelectorAll (".slider-main__content, .slider-rooms__content"));
 
     function deleteParallax () {
     if (window.innerWidth < 768 && isMobile.any()) {
@@ -1196,48 +1235,6 @@ headerObserver.observe(headerElement);
       ));
     }
   }
-
-
-  // if (parallaxElement.hasAttribute("data-swiper-parallax-x")) {
-  //   console.log('zaebok');
-    // d.setAttribute("align", "center");
-  // }
-
-
-
-
-//   const parallaxElement = document.querySelectorAll (".slider-main__content, .slider-rooms__content");
-//   const parallaxArray = Array.prototype.slice.call(parallaxElement);
-//   var parallaxAttrs = parallaxElement.hasAttributes('data-swiper-parallax-x');
-//   console.log(parallaxAttrs);
-
-//   function deleteParallax () {
-//     if (window.innerWidth < 768 && isMobile.any()) {
-// /* ----------------------- Удаляю параллакс эффект, дабы не замедлять страницу на мобилках ------------------------- */
-//       parallaxArray
-//         .forEach(el => Array
-//         .from(el.attributes)
-//         .forEach(swipeAttributes => el.removeAttribute("data-swiper-parallax-x"))
-//       );
-//     }
-//   }
-
-
-  function clearDataAttributes(el){
-    if (el.hasAttributes()) {
-        var attrs = el.attributes;
-        var thisAttributeString = "";
-        for(var i = attrs.length - 1; i >= 0; i--) {
-            thisAttributeString = attrs[i].name + "-" + attrs[i].value;
-            el.removeAttribute(thisAttributeString);
-        }
-    }
-}
-
-// , .slider-rooms__content
-  // const str = 'Быть или не быть вот в чём вопрос.';
-  // console.log(str.includes(''));       // true
-
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------- 1. Обработчик нажатия на кнопку Show More. Получаем саму кнопку при нажатии. Этот пункт выше описан ----------------------------- */
