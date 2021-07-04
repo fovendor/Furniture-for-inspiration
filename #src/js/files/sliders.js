@@ -110,8 +110,8 @@ if (document.querySelector('.slider-rooms__body')) {
 	});
 }
 
-if (document.querySelector('.slider-tips__body')) {
-	new Swiper('.slider-tips__body', {
+if (document.querySelector('.slider-relax__body')) {
+	new Swiper('.slider-relax__body', {
 		observer: true,
 		observeParents: true,
 		slidesPerView: 3,
@@ -121,13 +121,13 @@ if (document.querySelector('.slider-tips__body')) {
 		watchOverflow: true,
 		// Dotts
 		pagination: {
-			el: '.slider-tips__dotts',
+			el: '.slider-relax__dotts',
 			clickable: true,
 		},
 		// Arrows
 		navigation: {
-			nextEl: '.slider-tips .slider-arrow_next',
-			prevEl: '.slider-tips .slider-arrow_prev',
+			nextEl: '.slider-relax .slider-arrow_next',
+			prevEl: '.slider-relax .slider-arrow_prev',
 		},
 		breakpoints: {
 			// when window width is >= 320px

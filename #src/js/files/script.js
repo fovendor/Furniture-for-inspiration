@@ -131,48 +131,6 @@ headerObserver.observe(headerElement);
     }
   }
 
-
-  // if (parallaxElement.hasAttribute("data-swiper-parallax-x")) {
-  //   console.log('zaebok');
-    // d.setAttribute("align", "center");
-  // }
-
-
-
-
-//   const parallaxElement = document.querySelectorAll (".slider-main__content, .slider-rooms__content");
-//   const parallaxArray = Array.prototype.slice.call(parallaxElement);
-//   var parallaxAttrs = parallaxElement.hasAttributes('data-swiper-parallax-x');
-//   console.log(parallaxAttrs);
-
-//   function deleteParallax () {
-//     if (window.innerWidth < 768 && isMobile.any()) {
-// /* ----------------------- Удаляю параллакс эффект, дабы не замедлять страницу на мобилках ------------------------- */
-//       parallaxArray
-//         .forEach(el => Array
-//         .from(el.attributes)
-//         .forEach(swipeAttributes => el.removeAttribute("data-swiper-parallax-x"))
-//       );
-//     }
-//   }
-
-
-  function clearDataAttributes(el){
-    if (el.hasAttributes()) {
-        var attrs = el.attributes;
-        var thisAttributeString = "";
-        for(var i = attrs.length - 1; i >= 0; i--) {
-            thisAttributeString = attrs[i].name + "-" + attrs[i].value;
-            el.removeAttribute(thisAttributeString);
-        }
-    }
-}
-
-// , .slider-rooms__content
-  // const str = 'Быть или не быть вот в чём вопрос.';
-  // console.log(str.includes(''));       // true
-
-
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------- 1. Обработчик нажатия на кнопку Show More. Получаем саму кнопку при нажатии. Этот пункт выше описан ----------------------------- */
 /* ---------------------------------------------------- 2. Если у кнопки нет класса _hold, то добавляем его ------------------------------------------------------ */

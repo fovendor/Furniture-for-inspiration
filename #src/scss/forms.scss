@@ -37,6 +37,18 @@
         }
       }
     }
+
+    &_blue {
+      color: $orangeColor;
+      background-color: #fff;
+      @media (any-hover:hover) {
+        &:hover {
+          background-color: $dirtyBlue;
+          color: #fff;
+          border: 1px solid $dirtyBlue;
+        }
+      }
+    }
 }
 //</BUTTONS>====================================================================================================
 

@@ -1064,8 +1064,8 @@ if (document.querySelector('.slider-rooms__body')) {
 	});
 }
 
-if (document.querySelector('.slider-tips__body')) {
-	new Swiper('.slider-tips__body', {
+if (document.querySelector('.slider-relax__body')) {
+	new Swiper('.slider-relax__body', {
 		observer: true,
 		observeParents: true,
 		slidesPerView: 3,
@@ -1075,13 +1075,13 @@ if (document.querySelector('.slider-tips__body')) {
 		watchOverflow: true,
 		// Dotts
 		pagination: {
-			el: '.slider-tips__dotts',
+			el: '.slider-relax__dotts',
 			clickable: true,
 		},
 		// Arrows
 		navigation: {
-			nextEl: '.slider-tips .slider-arrow_next',
-			prevEl: '.slider-tips .slider-arrow_prev',
+			nextEl: '.slider-relax .slider-arrow_next',
+			prevEl: '.slider-relax .slider-arrow_prev',
 		},
 		breakpoints: {
 			// when window width is >= 320px
@@ -1235,48 +1235,6 @@ headerObserver.observe(headerElement);
       ));
     }
   }
-
-
-  // if (parallaxElement.hasAttribute("data-swiper-parallax-x")) {
-  //   console.log('zaebok');
-    // d.setAttribute("align", "center");
-  // }
-
-
-
-
-//   const parallaxElement = document.querySelectorAll (".slider-main__content, .slider-rooms__content");
-//   const parallaxArray = Array.prototype.slice.call(parallaxElement);
-//   var parallaxAttrs = parallaxElement.hasAttributes('data-swiper-parallax-x');
-//   console.log(parallaxAttrs);
-
-//   function deleteParallax () {
-//     if (window.innerWidth < 768 && isMobile.any()) {
-// /* ----------------------- Удаляю параллакс эффект, дабы не замедлять страницу на мобилках ------------------------- */
-//       parallaxArray
-//         .forEach(el => Array
-//         .from(el.attributes)
-//         .forEach(swipeAttributes => el.removeAttribute("data-swiper-parallax-x"))
-//       );
-//     }
-//   }
-
-
-  function clearDataAttributes(el){
-    if (el.hasAttributes()) {
-        var attrs = el.attributes;
-        var thisAttributeString = "";
-        for(var i = attrs.length - 1; i >= 0; i--) {
-            thisAttributeString = attrs[i].name + "-" + attrs[i].value;
-            el.removeAttribute(thisAttributeString);
-        }
-    }
-}
-
-// , .slider-rooms__content
-  // const str = 'Быть или не быть вот в чём вопрос.';
-  // console.log(str.includes(''));       // true
-
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------- 1. Обработчик нажатия на кнопку Show More. Получаем саму кнопку при нажатии. Этот пункт выше описан ----------------------------- */
