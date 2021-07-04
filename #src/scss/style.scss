@@ -99,6 +99,8 @@ body {
   }
   &__rooms {
   }
+  &__tips {
+  }
 }
 
 .main-slider {
@@ -884,3 +886,123 @@ body {
   &_prev{
   }
 }
+//</КОМНАТЫ> ========================================================================================================
+
+// <СОВЕТЫ> =========================================================================================================
+.tips {
+  @include adaptiv-value ("padding-top", 44, 15, 1);
+  @include adaptiv-value ("padding-bottom", 44, 15, 1);
+
+  // .tips__container
+  &__container {
+  }
+
+  // .tips__title
+  &__title {
+  }
+
+  // .tips__slider
+  &__slider {
+  }
+}
+
+.slider-tips {
+  position: relative;
+  // .slider-tips__body
+  &__body {
+    // В _swiper применено свойство overflow: hidden, из-за чего режутся тени у слайдов
+    // Логично, что, раз области видимости маловато для отображения теней, т.к. слайды вплотную прилегают к краям slider-tips__body, то нужно расширить:
+    @include adaptiv-value ("margin-right", -32, -15, 1);
+    @include adaptiv-value ("margin-left", -32, -15, 1);
+    @include adaptiv-value ("padding", 30, 15, 1);
+  }
+
+  // .slider-tips__slide
+  &__slide {
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .2s ease 0s;
+    @media (any-hover: hover) {
+      &:hover {
+        box-shadow: 0 0 32px rgba(97, 97, 97, 0.1);
+        filter: blur;
+      }
+    }
+  }
+
+  // .slider-tips__image
+  &__image {
+    padding: 0px 0px (251px / 391px * 100%) 0px;
+  }
+
+  // .slider-tips__content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: 15px;
+    align-items: flex-start;
+  }
+
+  // .slider-tips__title
+  &__title {
+    @include adaptiv-value ("font-size", 24, 14, 1);
+    @include adaptiv-value ("line-height", 29, 18, 1);
+    font-weight: 600;
+    color: inherit;
+    &:not(:last-child) {
+      margin: 0px 0px (8px / 24px * 1em) 0px;
+    }
+  }
+
+  // .slider-tips__text
+  &__text {
+    @include adaptiv-value ("font-size", 14, 10, 1);
+    @include adaptiv-value ("line-height", 21, 14, 1);
+    font-weight: 500;
+
+    color: $grayColor;
+  }
+
+  // .slider-tips__dotts
+  &__dotts {
+    @include adaptiv-value ("padding-top", 8, 0, 1);
+    justify-content: center;
+  }
+
+  // .slider-tips__arrows
+  &__arrows {
+    justify-content: space-between;
+    position: absolute;
+    left: 24px;
+    transform: translate(0, -50%);
+    width: calc(100% - 48px);
+    top: 50%;
+    z-index: 5;
+    @media (min-width: $md1+px) {
+      left: -24px;
+      transform: translate(0, -50%);
+      width: calc(100% + 48px);
+    }
+    @media (max-width: $md3+px) {
+      display: none;
+    }
+  }
+}
+
+.slider-arrow {
+
+  // .slider-arrow_white
+  &_white {
+  }
+
+  // .slider-arrow_prev
+  &_prev {
+  }
+
+  // .slider-arrow_next
+  &_next {
+  }
+}
+
+// </СОВЕТЫ> =========================================================================================================

@@ -112,9 +112,9 @@ headerObserver.observe(headerElement);
 /* ------- После этого в теле цикла создаю функцию swipeAttributes, которая из каждого элемента массива с атрибутами удаляет атрибут data-swiper-parallax-x ------- */
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
-  const parallaxElement = document.querySelectorAll (".slider-main__content, .slider-rooms__content");
-  const parallaxArray = Array.prototype.slice.call(parallaxElement);
-  console.log(parallaxArray);
+  const parallaxArray =
+    Array.prototype.slice.call(
+      document.querySelectorAll (".slider-main__content, .slider-rooms__content"));
 
     function deleteParallax () {
     if (window.innerWidth < 768 && isMobile.any()) {
