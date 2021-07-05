@@ -25,6 +25,10 @@
 	}
 }
 
+._icon-trash:before {
+  content: "\e90a";
+  opacity: 0;
+}
 ._icon-checkmark:before {
   content: "\e909";
   display: none;
