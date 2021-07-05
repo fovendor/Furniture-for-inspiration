@@ -65,15 +65,66 @@ window.onload = function () {
       updateCart(targetElement, productId, false);
       e.preventDefault();
 		}
-    /* ---------------------- Отслеживаем нажатие на ссылку удаления товара из корзины по клику на Delete all items --------------- */
+    /* ---------------------- Отслеживаем нажатие на ссылку добавления товара, находящегося в корзине по клику на Delete all items --------------- */
     // ----------- После получения cart-list__delete, обращаемся к нему и получаем родителя этого объекта с классом cart-list__item и получаем его id
     // ----------- Передаём в функцию updateCart нажатый объект и его родителя с его идентификатором. False означает, что мы не добавляем, а удаляем
-    if (targetElement.classList.contains('cart-list__delete-items')) {
+    if (targetElement.classList.contains('cart-list__plus-item')) {
       const productId = targetElement.closest('.cart-list__item').dataset.cartPid;
-      updateCart(targetElement, productId, false);
+      const cartProduct = document.querySelector(`[data-cart-pid="${productId}"]`);
+      const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+
+      const cart = document.querySelector('.cart-header');
+      const cartIcon = cart.querySelector('.cart-header__icon');
+      const cartQuantity = cartIcon.querySelector('span');
+
+      for (var i = 0; i < 1; i++) {
+        cartProductQuantity.textContent = ++cartProductQuantity.textContent;
+        cartQuantity.textContent = ++cartQuantity.textContent;
+      }
       e.preventDefault();
     }
+
+    /* ---------------------- Отслеживаем нажатие на ссылку удаления всех единиц выбранного товара по клику на Delete all --------------- */
+    // ----------- После получения cart-list__clear-cart, gередаём в функцию clearCart нажатый объект
+    if (targetElement.classList.contains('cart-list__delete-items')) {
+
+      const productId = targetElement.closest('.cart-list__item').dataset.cartPid;
+      const cartProduct = document.querySelector(`[data-cart-pid="${productId}"]`);
+      const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+      const cart = document.querySelector('.cart-header');
+      const cartIcon = cart.querySelector('.cart-header__icon');
+      const cartQuantity = cartIcon.querySelector('span');
+
+      // console.log(parseInt(cartProductQuantity.textContent));
+      while ((parseInt(cartProductQuantity.textContent)) > 0) {
+        cartProductQuantity.textContent = --cartProductQuantity.textContent;
+        cartQuantity.textContent = --cartQuantity.textContent;
+      } if (!parseInt(cartProductQuantity.textContent)) {
+        cartProduct.remove();
+      }
+
+      if (cartQuantity.textContent == 0) {
+        cartQuantity.remove();
+        cart.classList.remove('_active');
+      }
+
+
+      // if (!cartQuantity) {
+      //   cartQuantity.textContent = cartQuantityValue;
+      // } else {
+      //   cartQuantity.remove();
+      //   cart.classList.remove('_active');
+      // }
+
+
+      // for (var i = 0; i < 1; i++) {
+      //   cartProductQuantity.textContent = --cartProductQuantity.textContent;
+      //   cartQuantity.textContent = --cartQuantity.textContent;
+      // }
+      e.preventDefault();
+
   }
+}
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------- */
 /* ----------------------------- https://developer.mozilla.org/ru/docs/Web/API/Intersection_Observer_API ----------------------------------- */
@@ -100,16 +151,11 @@ const callback = function(entries, observer) {
 const headerObserver = new IntersectionObserver(callback);
 headerObserver.observe(headerElement);
 
-// Вывод в консоль изменений состояния целевого элемента
-// setInterval(function(){
-//   console.log("Сейчас целевой элемент имеет классы:", headerElement.classList.value);
-// }, 500);
-
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ------------ Обработчик свайпа на устройствах с тачскрином. Нужен чтобы отслеживать изменения и убирать/добавлять что-либо на мобильных устройствах ------------ */
-/* ---------- Дословно: получаю коллекцию объектов с классом .slider-main__content, затем проверяю разрешение экрана на соответствие мобильному девайсу ----------- */
-/* ------------------------------ После этого циклом forEach просмартиваю каждый элемент и помещаю в массив и выбираю из них атрибуты ----------------------------- */
-/* ------- После этого в теле цикла создаю функцию swipeAttributes, которая из каждого элемента массива с атрибутами удаляет атрибут data-swiper-parallax-x ------- */
+/* ---------- Дословно: получаю массив из коллекции с классом .slider-main__content, затем проверяю разрешение экрана на соответствие мобильному девайсу ---------- */
+/* --------------------------- После этого циклом forEach просмартиваю каждый элемент, помещаю в массив и выбираю из них нужные атрибуты -------------------------- */
+/* ---------- После этого в теле цикла создаю функцию swipeAttributes, которая из каждого элемента массива с атрибутами удаляет ранее выбранный атрибут ----------- */
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
   const parallaxArray =
@@ -327,23 +373,6 @@ headerObserver.observe(headerElement);
     };
   }
 
-	// function clearCart(productId, productClear = true) {
-  //   const cart = document.querySelector('.cart-header');
-  //   const cartIcon = cart.querySelector('.cart-header__icon');
-  //   const cartQuantity = cartIcon.querySelector('span');
-	// 	const cartProduct = document.querySelector(`[data-cart-pid="${productId}"]`);
-	// 	const cartList = document.querySelector('.cart-list');
-
-  //   if (productClear) {
-  //     if (cartQuantity) {
-  //       cartQuantity.innerHTML = 0;
-  //     }
-  //     else {
-  //       cartIcon.insertAdjacentHTML('beforeend', `<span>0</span>`);
-  //     }
-  //   }
-  // }
-
 	function updateCart(productButton, productId, productAdd = true) {
 		const cart = document.querySelector('.cart-header');
 		const cartIcon = cart.querySelector('.cart-header__icon');
@@ -362,29 +391,32 @@ headerObserver.observe(headerElement);
 /* ---- Проверяем, существует ли в корзине добавленный товар cartProduct и, если нет, создаём: ----- */
 /* ---- 1. Задаём все необходимые константы: название товара, изображение. Содержимое карточки формируем константой cartProductContent ----- */
 /* ---------------------------------------------------------------------------------------------------------------------------------- */
-    if (!cartProduct) {
-      const product = document.querySelector(`[data-pid="${productId}"]`);
-      const cartProductImage = product.querySelector('.item-product__image').innerHTML;
-      const cartProductTitle = product.querySelector('.item-product__title').innerHTML;
-      const cartProductContent = `
-        <a href="" class="cart-list__image _ibg">${cartProductImage}</a>
-        <div class="cart-list__body">
-          <a href="" class="cart-list__title">${cartProductTitle}</a>
-          <div class="cart-list__quantity">Quantity: <span>1</span></div>
-          <a href="" class="cart-list__delete">Delete</a>
-        </div>
-        <div class="cart-list__controls">
-          <a href="" class="cart-list__plus-item">Add one item</a>
-          <a href="" class="cart-list__delete-items">Delete all items</a>
-        <div>
-      `;
-			cartList.insertAdjacentHTML('beforeend', `<li data-cart-pid="${productId}" class="cart-list__item">${cartProductContent}</li>`);
-		}
-      else { // кнопка add to cart активна после единичного клика
-        const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
-        cartProductQuantity.innerHTML = ++cartProductQuantity.innerHTML;
+      if (!cartProduct) {
+        const product = document.querySelector(`[data-pid="${productId}"]`);
+        const cartProductImage = product.querySelector('.item-product__image').innerHTML;
+        const cartProductTitle = product.querySelector('.item-product__title').innerHTML;
+        const cartProductContent = `
+          <a href="" class="cart-list__image _ibg">${cartProductImage}</a>
+          <div class="cart-list__body body-cart">
+            <div class="body-cart__left">
+              <a href="" class="cart-list__title">${cartProductTitle}</a>
+              <div class="cart-list__quantity">Quantity: <span>1</span></div>
+              <a href="#" class="cart-list__plus-item">Add item</a>
+              <a href="#" class="cart-list__delete">Delete</a>
+            </div>
+            <div class="body-cart__right _icon-trash">
+              <a href="#" class="cart-list__delete-items">Delete all</a>
+            </div>
+          </div>
+        `;
+        cartList.insertAdjacentHTML('beforeend', `<li data-cart-pid="${productId}" class="cart-list__item">${cartProductContent}</li>`);
       }
-      productButton.classList.remove('_hold');
+      // else {
+      // множественное добавление товара в корзину
+        // const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+        // cartProductQuantity.innerHTML = ++cartProductQuantity.innerHTML;
+      // }
+      // productButton.classList.remove('_hold'); // кнопка add to cart активна после единичного клика
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* ---- Обработчик удаления товаров из корзины.  -------- */
@@ -396,12 +428,15 @@ headerObserver.observe(headerElement);
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
     } else {
+      // Если parseInt возвращает не число, то удаляем cartProduct
       const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
+      // console.log(cartProductQuantity);
       cartProductQuantity.innerHTML = --cartProductQuantity.innerHTML;
       if (!parseInt(cartProductQuantity.innerHTML)) {
         cartProduct.remove();
       }
 
+      //
       const cartQuantityValue = --cartQuantity.innerHTML;
       if (cartQuantityValue) {
         cartQuantity.innerHTML = cartQuantityValue;
@@ -410,28 +445,8 @@ headerObserver.observe(headerElement);
         cart.classList.remove('_active');
       }
 
-      // const cartQuantityValue = (cartQuantity - cartProductQuantity).innerHTML;
-      // if (cartQuantityValue) {
-      //   cartQuantity.innerHTML = cartQuantityValue;
-      // } else {
-      //   cartQuantity.remove();
-      //   cart.classList.remove('_active');
-      // }
-
     }
 
-    /* ---- Увеличение количества товара на единицу. Расскоментить после добавления всех нужных кнопочек (+ и -) --------*/
-    // if const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
-    // cartProductQuantity.innerHTML = ++cartProductQuantity.innerHTML;
-
-    // if (targetElement.classList.contains('.cart-list__plus-item')) {
-    //   const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
-    //   addToCart(targetElement, productId);
-    //   e.preventDefault();
-    // }
-
   }
-
-
 
 }
