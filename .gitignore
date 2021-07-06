@@ -1,8 +1,3 @@
 node_modules/
-/#src/img/
 .vscode/
 res.rar
-howuse.txt
-gulpfile.js
-package-lock.json
-package.json
