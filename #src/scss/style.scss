@@ -150,6 +150,7 @@ body {
     @media (max-width: $md2+px) {
       margin: 0px -15px 0px -15px;
     }
+    border-radius: 2px;
     box-shadow: 0 0 32px rgba(97, 97, 97, 0.201);
   }
 
@@ -172,9 +173,9 @@ body {
   @media (min-width: $md2+px) {
     @include adaptiv-value(padding, 60, 1, 1);
     // экспериментальная технология, не везде поддерживается
-    @supports ((-webkit-backdrop-filter: blur(25px)) or (backdrop-filter: blur(25px))) {
+    @supports ((-webkit-backdrop-filter: blur(15px)) or (backdrop-filter: blur(15px))) {
       background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(25px);
+      backdrop-filter: blur(15px);
     }
     @media (max-width: $md3+px) {
       background: rgba(255, 255, 255, 0.72);
@@ -273,6 +274,7 @@ body {
     max-height: 300px;
     overflow: auto;
     color: inherit;
+    border-radius: 2px;
     @include adaptiv-value ("padding", 24, 14, 1);
     background: rgba(255, 255, 255, 0.72);
     @media (min-width: $md3+px) {
@@ -350,7 +352,7 @@ body {
 
   // .controls-slider-main__arrows
   &__arrows {
-    @media (max-width: $md3+px) {
+    @media (max-width: $md2+px) {
       display: none;
     }
   }
@@ -458,6 +460,7 @@ body {
   display: flex;
   position: relative;
   flex-direction: column;
+  border-radius: 2px;
   background-color: #F4F5F7;
   transition: all .5s ease 0s;
 	@media (any-hover: hover) {
