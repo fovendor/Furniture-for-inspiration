@@ -77,7 +77,6 @@
     }
   }
 
-
 	// .header__wrapper
 	&__wrapper {
 		position: fixed;
@@ -129,6 +128,21 @@
 		z-index: 5;
 		line-height: 29 / 24 * 100%;
     transition: transform .2s ease 0s;
+    @media (max-width: $md3+px) {
+      flex-direction: row;
+
+      .logo__separator {
+        display: block;
+        position: relative;
+        font-size: 20px;
+        left: 0;
+        bottom: 0;
+        padding: 0px 10px;
+      }
+      .logo__dot {
+        display: none;
+      }
+    }
 
 		// .logo__text
 		&__text {
@@ -166,6 +180,9 @@
       transition: all .3s ease 0s;
       @include adaptiv-value ("font-size", 30, 20, 1);
       @include adaptiv-value ("letter-spacing", 15, 20, 1);
+      @media (max-width: $md3+px) {
+        transform: translate(0px, -3px);
+      }
     }
 
     // .logo__scroll-small-left

@@ -1932,6 +1932,7 @@ body.ie ._ibg img {
       -ms-flex: 0 0 39.8387096774%;
           flex: 0 0 39.8387096774%;
   margin-bottom: 80px;
+  border-radius: 2px;
   -webkit-box-shadow: 0 0 32px rgba(97, 97, 97, 0.201);
           box-shadow: 0 0 32px rgba(97, 97, 97, 0.201);
 }
@@ -2028,6 +2029,7 @@ body.ie ._ibg img {
   max-height: 300px;
   overflow: auto;
   color: inherit;
+  border-radius: 2px;
   padding: 24px;
   background: rgba(255, 255, 255, 0.72);
 }
@@ -2182,6 +2184,7 @@ body.ie ._ibg img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  border-radius: 2px;
   background-color: #F4F5F7;
   -webkit-transition: all 0.5s ease 0s;
   -o-transition: all 0.5s ease 0s;
@@ -2755,11 +2758,11 @@ body.ie ._ibg img {
     padding: 60px;
   }
 
-@supports ((-webkit-backdrop-filter: blur(25px)) or (backdrop-filter: blur(25px))) {
+@supports ((-webkit-backdrop-filter: blur(15px)) or (backdrop-filter: blur(15px))) {
     .content-main {
       background: rgba(255, 255, 255, 0.5);
-      -webkit-backdrop-filter: blur(25px);
-              backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(15px);
+              backdrop-filter: blur(15px);
     }
 }
 
@@ -3181,6 +3184,10 @@ body.ie ._ibg img {
     margin: 0px -15px 0px -15px;
   }
 
+  .controls-slider-main__arrows {
+    display: none;
+  }
+
   .advantages__item {
     min-width: 280px;
   }
@@ -3231,6 +3238,32 @@ body.ie ._ibg img {
 
   .header__body {
     min-height: 50px;
+  }
+
+  .header .logo {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+
+  .header .logo .logo__separator {
+    display: block;
+    position: relative;
+    font-size: 20px;
+    left: 0;
+    bottom: 0;
+    padding: 0px 10px;
+  }
+
+  .header .logo .logo__dot {
+    display: none;
+  }
+
+  .header .logo__scroll {
+    -webkit-transform: translate(0px, -3px);
+        -ms-transform: translate(0px, -3px);
+            transform: translate(0px, -3px);
   }
 
   .menu__body {
@@ -3390,10 +3423,6 @@ body.ie ._ibg img {
               backdrop-filter: blur(0px);
     }
 }
-
-  .controls-slider-main__arrows {
-    display: none;
-  }
 
   .advantages__container {
     display: -webkit-box;
