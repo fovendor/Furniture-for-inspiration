@@ -3,11 +3,11 @@
 		{
 			"id": 5,
 			"url": "#",
-			"title": "Grifo",
-			"text": "Night lamp",
+			"title": "Village",
+			"text": "Baskets and vase",
 			"labels": "",
 			"image": "05.jpg",
-			"price": "1.500.000",
+			"price": "15. 99",
 			"priceOld": "",
 			"shareUrl": "",
 			"likeUrl": ""
@@ -15,8 +15,8 @@
 		{
 			"id": 6,
 			"url": "#",
-			"title": "Muggo",
-			"text": "Small mug",
+			"title": "Night'y",
+			"text": "Night lump",
 			"labels": [
 				{
 					"type": "sale",
@@ -28,16 +28,16 @@
 				}
 			],
 			"image": "06.jpg",
-			"price": "1.500.000",
-			"priceOld": "2.500.000",
+			"price": "25. 99",
+			"priceOld": "50",
 			"shareUrl": "",
 			"likeUrl": ""
 		},
 		{
 			"id": 7,
 			"url": "#",
-			"title": "Pingky",
-			"text": "Cute bed set",
+			"title": "Pink'y",
+			"text": "Gift set",
 			"labels": [
 				{
 					"type": "sale",
@@ -45,16 +45,16 @@
 				}
 			],
 			"image": "07.jpg",
-			"price": "7.000.000",
-			"priceOld": "14.500.000",
+			"price": "30. 99",
+			"priceOld": "59 .99",
 			"shareUrl": "",
 			"likeUrl": ""
 		},
 		{
 			"id": 8,
 			"url": "#",
-			"title": "Potty",
-			"text": "Minimalist flower pot",
+			"title": "Pink'y green",
+			"text": "Minimalist flower double pot",
 			"labels": [
 				{
 					"type": "new",
@@ -62,7 +62,7 @@
 				}
 			],
 			"image": "08.jpg",
-			"price": "500.000",
+			"price": "19. 99",
 			"priceOld": "",
 			"shareUrl": "",
 			"likeUrl": ""
@@ -70,8 +70,8 @@
     {
 			"id": 9,
 			"url": "#",
-			"title": "Potty",
-			"text": "Minimalist flower pot",
+			"title": "Aztec'y",
+			"text": "Archaic vase",
 			"labels": [
 				{
 					"type": "new",
@@ -79,7 +79,7 @@
 				}
 			],
 			"image": "09.jpg",
-			"price": "670.000",
+			"price": "70. 90",
 			"priceOld": "",
 			"shareUrl": "",
 			"likeUrl": ""
@@ -87,8 +87,8 @@
 		{
 			"id": 10,
 			"url": "#",
-			"title": "Muggo",
-			"text": "Small mug",
+			"title": "Chest'y",
+			"text": "Open chest on stands",
 			"labels": [
 				{
 					"type": "sale",
@@ -100,8 +100,8 @@
 				}
 			],
 			"image": "10.jpg",
-			"price": "1.500.000",
-			"priceOld": "2.500.000",
+			"price": "99 .99",
+			"priceOld": "200",
 			"shareUrl": "",
 			"likeUrl": ""
 		}
