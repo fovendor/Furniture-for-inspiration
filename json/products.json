@@ -1,0 +1,109 @@
+{
+	"products": [
+		{
+			"id": 5,
+			"url": "#",
+			"title": "Village",
+			"text": "Baskets and vase",
+			"labels": "",
+			"image": "05.jpg",
+			"price": "15. 99",
+			"priceOld": "",
+			"shareUrl": "",
+			"likeUrl": ""
+		},
+		{
+			"id": 6,
+			"url": "#",
+			"title": "Night'y",
+			"text": "Night lump",
+			"labels": [
+				{
+					"type": "sale",
+					"value": "-50%"
+				},
+				{
+					"type": "new",
+					"value": "New"
+				}
+			],
+			"image": "06.jpg",
+			"price": "25. 99",
+			"priceOld": "50",
+			"shareUrl": "",
+			"likeUrl": ""
+		},
+		{
+			"id": 7,
+			"url": "#",
+			"title": "Pink'y",
+			"text": "Gift set",
+			"labels": [
+				{
+					"type": "sale",
+					"value": "-50%"
+				}
+			],
+			"image": "07.jpg",
+			"price": "30. 99",
+			"priceOld": "59 .99",
+			"shareUrl": "",
+			"likeUrl": ""
+		},
+		{
+			"id": 8,
+			"url": "#",
+			"title": "Pink'y green",
+			"text": "Minimalist flower double pot",
+			"labels": [
+				{
+					"type": "new",
+					"value": "New"
+				}
+			],
+			"image": "08.jpg",
+			"price": "19. 99",
+			"priceOld": "",
+			"shareUrl": "",
+			"likeUrl": ""
+		},
+    {
+			"id": 9,
+			"url": "#",
+			"title": "Aztec'y",
+			"text": "Archaic vase",
+			"labels": [
+				{
+					"type": "new",
+					"value": "New"
+				}
+			],
+			"image": "09.jpg",
+			"price": "70. 90",
+			"priceOld": "",
+			"shareUrl": "",
+			"likeUrl": ""
+		}    ,
+		{
+			"id": 10,
+			"url": "#",
+			"title": "Chest'y",
+			"text": "Open chest on stands",
+			"labels": [
+				{
+					"type": "sale",
+					"value": "-50%"
+				},
+				{
+					"type": "new",
+					"value": "New"
+				}
+			],
+			"image": "10.jpg",
+			"price": "99 .99",
+			"priceOld": "200",
+			"shareUrl": "",
+			"likeUrl": ""
+		}
+	]
+}
