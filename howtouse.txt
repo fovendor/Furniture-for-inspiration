@@ -1,17 +1,18 @@
-In the development environment in the terminal, execute the commands:
-1) If you don't have Python installed, do it. In most cases, a Python installation is sufficient!
-2) npm i
-3) gulp
+С правами администратора!
 
-Possible problems with gulp and solutions:
+В терминале:
+1) npm i
+2) gulp
 
-1) After updating SASS, you may sometimes need to run the command:
+Переустановка node-sass
 npm rebuild node-sass
+или
+npm install sass gulp-sass --save-dev
 
-2) If after installing Python in the terminal log there are errors related to its libraries, run the command:
+Проблема с pyton
 npm install --global windows-build-tools
 
-3) For problems with imagemin::
-- Folders and files must be named in Latin letters without spaces;
-- The img tag and its content must be written on one line without hyphenation;
-- The src attribute must contain the path to a real image.
+Варианты решения проблем c imagemin:
+- папки и файлы должны быть названы латиницей без пробелов
+- тег img и его содержимое должны быть записаны в одну строку без переносов
+- в атрибуте src должен быть указан путь к существующей картинке
